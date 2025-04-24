@@ -2,11 +2,11 @@ services:
   # Venomous Workflow Dashboard ( Vite Frontend )
   # ====================================================================================================
   workflow_dashboard:
-    image: venomous_workflow_dashboard:dev
+    image: venomous_workflow_dashboard
     container_name: dashboard
     build:
       context: ../app-dashboard
-      dockerfile: docker/Dockerfile.dev
+      dockerfile: docker/Dockerfile.prod
     ports:
       - 5000:5000
     environment:
@@ -21,15 +21,15 @@ services:
   # Venomous Workflow Server ( Django Backend )
   # ====================================================================================================
   workflow_server:
-    image: venomous_workflow_server:dev
+    image: venomous_workflow_server
     container_name: server
     build:
       context: ../app-server
-      dockerfile: docker/Dockerfile.dev
+      dockerfile: docker/Dockerfile.prod
     ports:
       - 5200:5200
     environment:
-      - APP_SERVER_ENV=development
+      - APP_SERVER_ENV=production
       - APP_SERVER_DB_HOST=workflow_server_db
       - APP_SERVER_DB_PORT=5432 # 容器内通信不是宿主机，所以使用默认的 5432
       - APP_SERVER_DB_USER=postgres

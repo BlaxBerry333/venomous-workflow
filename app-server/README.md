@@ -1,4 +1,4 @@
-# Venomous Workflow Dashboard
+# Venomous Workflow Server
 
 - [Overview](#overview)
 - [Tech Stack](#tech-stack)
@@ -9,27 +9,25 @@
 
 ## Overview
 
-This is a dashboard for Venomous Workflow. It is a web application that allows you to view and manage workflow tasks.
+This is a server for Venomous Workflow. It is a web application that allows you to view and manage workflow tasks.
 
 ## Tech Stack
 
-- react v19
-- typescript v5
-- vite v6
-- react-router-dom v6
-- react-query
-- react-hook-form v7
-- reactflow v12
-- zod v3
+- python v3.10.0
+- django v4.2
+- django-rest-framework v3.14
+- django-rest-framework-simplejwt v5.2
 
 ## Usage
 
 ### Local Setup
 
 ```zsh
+# 1. clone then go to the directory
 % git clone https://github.com/BlaxBerry333/venomous-workflow.git
 % cd venomous-workflow
 
+# 2. setup containers
 % make setup-all ENV=dev    # dev environment
 % make setup-all ENV=prod   # prod environment
 % make setup-all            # prod environment
@@ -54,5 +52,22 @@ root@[CONTAINER_ID]:/app# exit
 ### Change Liberaries
 
 ```zsh
-% yarn add [PACKAGE_NAME]
+# 1. update requirements.txt
+% make stop-all
+
+# 2. build images
+% make build-all
+
+# 3. setup containers
+% make setup-all ENV=dev    # dev environment
+% make setup-all ENV=prod   # prod environment
+% make setup-all            # prod environment
+```
+
+## Common Django Commands
+
+```zsh
+% make entry CONTAINER=server
+root@[CONTAINER_ID]:/app# python manage.py [COMMAND]
+root@[CONTAINER_ID]:/app# exit
 ```

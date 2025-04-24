@@ -1,0 +1,15 @@
+# Use the official Python 3.10 image as the base image
+FROM python:3.10.0-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy requirements.txt file to the container, and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project files to the container
+COPY . .
+
+# Run the Django server
+CMD ["python", "manage.py", "runserver", "5200"]
