@@ -1,0 +1,51 @@
+{
+  "name": "venomous-workflow-dashboard",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start:dev": "vite --force --host --mode development",
+    "start:prod": "vite --host --mode production",
+    "build:dev": "tsc && vite build --mode development",
+    "build:prod": "tsc && vite build --mode production",
+    "preview": "vite preview",
+    "check:packages": "npx depcheck",
+    "check:type": "tsc --noEmit",
+    "check:eslint": "eslint . --cache --cache-location=./.cache/.eslintcache",
+    "check:prettier": "prettier . --check",
+    "check:all": "concurrently --names \"check:type,check:eslint,check:prettier\" \"yarn check:type\" \"yarn check:eslint\" \"yarn check:prettier\"",
+    "eslint": "prettier --write .",
+    "prettier": "prettier . --write --cache --cache-location=./.cache/.prettiercache",
+    "format:all": "concurrently  --names \"eslint,prettier\" \"yarn eslint\" \"yarn prettier\"",
+    "clean-cache": "rm -rf node_modules/.vite .vite .cache"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "6.30.0",
+    "venomous-ui": "git+https://github.com/BlaxBerry333/venomous-ui",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/node": "^22.14.1",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react-swc": "^3.8.0",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.22.0",
+    "eslint-plugin-react-dom": "^1.48.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "eslint-plugin-react-x": "^1.48.4",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-css-order": "^2.1.2",
+    "prettier-plugin-organize-attributes": "^1.0.0",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.26.1",
+    "vite": "^6.3.1"
+  }
+}
