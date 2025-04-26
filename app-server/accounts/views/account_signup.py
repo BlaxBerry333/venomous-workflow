@@ -1,8 +1,8 @@
+import logging
 from rest_framework import status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-import logging
 from ..serializers import AccountSignupSerializer
 
 logger = logging.getLogger(__name__)
@@ -42,7 +42,9 @@ class AccountSignupView(APIView):
             )
 
         except Exception as e:
-            logger.error(f"Failed to signup for {request.data.get('email')}: {str(e)}")
+            logger.error(
+                "Failed to signup for %s: %s", request.data.get("email"), str(e)
+            )
             return Response(
                 {"error": "Failed to signup."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,

@@ -7,8 +7,14 @@ class AccountUserSerializer(serializers.ModelSerializer):
     Account User Serializer
     """
 
-    is_online = serializers.BooleanField(read_only=True)
-
     class Meta:
         model = CustomUserModel
-        fields = ("id", "email", "name", "is_staff", "is_superuser", "is_online")
+        fields = (
+            "id",
+            "email",
+            "name",
+            "is_staff",
+            "is_superuser",
+            "date_joined",
+            "last_login",
+        )

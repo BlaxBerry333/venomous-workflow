@@ -1,6 +1,7 @@
 import { memo, type NamedExoticComponent } from "react";
 import { AdminFullScreen, AdminHeader, Flex } from "venomous-ui";
 import LayoutSettings from "../LayoutSettings";
+import AdminRouteLayoutHeaderAccount from "./AdminRouteLayoutHeaderAccount";
 
 const AdminRouteLayoutHeader: NamedExoticComponent = memo(() => {
   return (
@@ -9,6 +10,7 @@ const AdminRouteLayoutHeader: NamedExoticComponent = memo(() => {
 
       {/* Actions */}
       <Flex row>
+        <AdminRouteLayoutHeaderAccount />
         <AdminFullScreen />
         <LayoutSettings />
       </Flex>

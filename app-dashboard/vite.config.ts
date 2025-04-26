@@ -11,6 +11,18 @@ export default defineConfig(({ mode }) => {
     server: {
       strictPort: true,
       port: parseInt(ENV_VARIABLES.VITE_APP_DASHBOARD_SERVER_PORT, 10),
+      proxy: {
+        "/server-api": {
+          target: ENV_VARIABLES.VITE_APP_SERVER_DOMAIN,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/server-api/, "/api"),
+        },
+        "/server-account-auth-api": {
+          target: ENV_VARIABLES.VITE_APP_SERVER_DOMAIN,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/server-account-auth-api/, "/api"),
+        },
+      },
     },
 
     plugins: [react()],

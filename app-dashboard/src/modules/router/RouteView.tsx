@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useRoutes, type RouteObject } from "react-router-dom";
-import { autoImportedRoutes, type IAutoImportedModules } from "./helpers";
+import { autoImportedRoutes, getRouteLeaf, type IAutoImportedModules } from "./helpers";
 import { AdminRouteLayout, AuthRouteLayout, ErrorRouteLayout } from "./layouts";
+import ROUTE_PATHS from "./paths";
 
 const AUTH_ROUTES: RouteObject[] = autoImportedRoutes(
   import.meta.glob("@/pages/auth/**/page.tsx", { eager: false }) as IAutoImportedModules,
@@ -19,7 +20,7 @@ export default function RouterViews(): React.ReactElement | null {
   return useRoutes([
     {
       path: "/",
-      element: <Navigate replace to={"/auth/signin"} />,
+      element: <Navigate replace to={ROUTE_PATHS.AUTH.SIGNIN} />,
     },
 
     {
@@ -30,9 +31,8 @@ export default function RouterViews(): React.ReactElement | null {
         </AuthRouteLayout>
       ),
       children: [
-        { index: true, element: <Navigate replace to={"signin"} /> },
+        { index: true, element: <Navigate replace to={getRouteLeaf(ROUTE_PATHS.AUTH.SIGNIN)} /> },
         ...AUTH_ROUTES,
-        { element: <Navigate replace to={"signin"} /> },
       ],
     },
 
@@ -44,9 +44,11 @@ export default function RouterViews(): React.ReactElement | null {
         </AdminRouteLayout>
       ),
       children: [
-        { index: true, element: <Navigate replace to={"analysis"} /> },
+        {
+          index: true,
+          element: <Navigate replace to={getRouteLeaf(ROUTE_PATHS.ADMIN.ANALYSIS)} />,
+        },
         ...ADMIN_ROUTES,
-        { element: <Navigate replace to={"analysis"} /> },
       ],
     },
 
@@ -62,7 +64,7 @@ export default function RouterViews(): React.ReactElement | null {
 
     {
       path: "*",
-      element: <Navigate replace to={"/errors/404"} />,
+      element: <Navigate replace to={ROUTE_PATHS.ERRORS[404]} />,
     },
   ]);
 }

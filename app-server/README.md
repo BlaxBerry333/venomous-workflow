@@ -63,15 +63,24 @@ root@[CONTAINER_ID]:/app# exit
 
 ```zsh
 # 1. update requirements.txt
+
+# 2. stop containers
 % make stop-all
 
-# 2. build images
+# 3. build images
 % make build-all
 
-# 3. setup containers
+# 4. setup containers
 % make setup-all ENV=dev    # dev environment
 % make setup-all ENV=prod   # prod environment
 % make setup-all            # prod environment
+
+# 5. migrate using custom user model
+% make entry CONTAINER=server
+root@[CONTAINER_ID]:/app# \
+    python manage.py makemigrations accounts && \
+    python manage.py migrate accounts && \
+    python manage.py migrate
 ```
 
 ## Commands Inside Container
@@ -101,16 +110,16 @@ Local URL:
 
 ## APIs
 
-| Method            | Path                                | Description          |
-| ----------------- | ----------------------------------- | -------------------- |
-| **account**       | -                                   | -                    |
-| POST              | `/api/account/signin/`              | signin               |
-| POST              | `/api/account/signup/`              | signup               |
-| POST              | `/api/account/signout/`             | signout              |
-| POST              | `/api/account/refresh-accesstoken/` | refresh access token |
-| **account users** | -                                   | -                    |
-| GET               | `/api/account/users/`               | -                    |
-| POST              | `/api/account/users/`               | -                    |
-| GET               | `/api/account/users/{id}`           | -                    |
-| PUT               | `/api/account/users/{id}`           | -                    |
-| DELETE            | `/api/account/users/{id}`           | -                    |
+| Method            | Path                                | Description                                                             |
+| ----------------- | ----------------------------------- | ----------------------------------------------------------------------- |
+| **account**       | -                                   | -                                                                       |
+| POST              | `/api/account/signin/`              | signin                                                                  |
+| POST              | `/api/account/signup/`              | create a normal user<br/> ( **not authorized to access Dajngo Admin** ) |
+| POST              | `/api/account/signout/`             | signout                                                                 |
+| POST              | `/api/account/refresh-accesstoken/` | refresh access token                                                    |
+| **account users** | -                                   | -                                                                       |
+| GET               | `/api/account/users/`               | -                                                                       |
+| POST              | `/api/account/users/`               | -                                                                       |
+| GET               | `/api/account/users/{id}/`          | -                                                                       |
+| PUT               | `/api/account/users/{id}/`          | -                                                                       |
+| DELETE            | `/api/account/users/{id}/`          | -                                                                       |

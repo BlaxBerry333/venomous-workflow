@@ -1,12 +1,31 @@
 import { SigninForm } from "@/features/auth/signin";
+import type { SigninFormValue } from "@/features/auth/signin/useSigninForm";
+import { useAccountSignin } from "@/modules/api/hooks/account-auth";
+import { useRouteNavigate } from "@/modules/router/hooks";
 import { AuthRouteLayoutTitle } from "@/modules/router/layouts";
-import { memo, useState, type NamedExoticComponent } from "react";
-import { useNavigate } from "react-router-dom";
+import ROUTE_PATHS from "@/modules/router/paths";
+import { memo, useCallback, type NamedExoticComponent } from "react";
+import { useToast } from "venomous-ui";
 
 const AuthSigninView: NamedExoticComponent = memo(() => {
-  const navigate = useNavigate();
+  const { mutateAsync: signin, isPending: isSigningin } = useAccountSignin();
 
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { replace } = useRouteNavigate();
+  const toast = useToast();
+
+  const handleOnSubmit = useCallback(
+    async (formValue: SigninFormValue) => {
+      await signin(formValue)
+        .then(() => {
+          toast({ type: "success", title: "登陆成功", description: "欢迎回来" });
+          replace(ROUTE_PATHS.ADMIN.ROOT);
+        })
+        .catch((error) => {
+          toast({ type: "error", title: "登陆失败", description: error.message });
+        });
+    },
+    [replace, signin, toast],
+  );
 
   return (
     <>
@@ -17,20 +36,7 @@ const AuthSigninView: NamedExoticComponent = memo(() => {
         subTitleExtraUrl="/auth/signup"
       />
 
-      <SigninForm
-        isSubmitting={isSubmitting}
-        handleOnSubmit={async (formValue) => {
-          try {
-            console.log(formValue);
-            setIsSubmitting(true);
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-            setIsSubmitting(false);
-            navigate("/admin/", { replace: true });
-          } catch (error) {
-            console.log(error);
-          }
-        }}
-      />
+      <SigninForm isSubmitting={isSigningin} handleOnSubmit={handleOnSubmit} />
     </>
   );
 });

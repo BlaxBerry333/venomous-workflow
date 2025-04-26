@@ -4,15 +4,22 @@ from .models import CustomUserModel
 
 
 class CustomUserModelAdmin(UserAdmin):
-    list_display = ("email", "is_active", "is_superuser")
-    list_filter = ("email",)
+    """
+    Custom User Model Admin Class
+    """
+
+    list_display = ("email", "is_active", "is_superuser", "date_joined", "last_login")
+    list_filter = ("email", "date_joined", "last_login")
     list_per_page = 20
+    ordering = ("email",)
     search_fields = ("email",)
+    readonly_fields = ("date_joined", "last_login")
     ordering = ("email",)
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
-        ("User Information", {"fields": ("name",)}),
+        (None, {"fields": ("password",)}),
+        ("User Information", {"fields": ("email", "name")}),
         ("User Permission", {"fields": ("is_staff", "is_superuser")}),
+        ("Important Dates", {"fields": ("date_joined", "last_login")}),
     )
     add_fieldsets = (
         (

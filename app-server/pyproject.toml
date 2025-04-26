@@ -1,0 +1,46 @@
+[project]
+name = "venomous-workflow-server"
+version = "1.0.0"
+
+[tool.black]
+target-version = ['py310']
+line-length = 88
+include = '\.pyi?$'
+exclude = '''
+(
+  migrations/
+  settings.py
+  urls.py
+  wsgi.py
+  asgi.py
+  manage.py
+  .tox/
+  .nox/
+  .coverage
+  .hypothesis/
+  .pytest_cache/
+  .git/
+)
+'''
+
+[tool.pylint]
+max-line-length = 88
+output-format = "colorized"
+disable = [
+    "C0114", # Missing module docstring
+    "C0115", # Missing class docstring
+    "C0116", # Missing function docstring
+    "R0201", # Method does not use self
+    "W0201", # Instance variable is not defined in __init__
+    "R0022", # Suppress the "useless option value" warning
+]
+ignore = [
+    "migrations/*",
+    "manage.py",
+    "settings.py",
+    "urls.py",
+    "wsgi.py",
+    "asgi.py",
+    "*/tests/*",
+    "*/migrations/*",
+]

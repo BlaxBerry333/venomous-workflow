@@ -1,9 +1,9 @@
-import type { ISignupParameter } from "@/modules/api/types/auth";
+import type { IAccountSignupParameter } from "@/modules/api/types/account-auth";
 import { useCallback } from "react";
 import { createZodSchema, useForm, zodResolver } from "venomous-ui";
 import { z } from "zod";
 
-export type SignupFormValue = ISignupParameter;
+export type SignupFormValue = IAccountSignupParameter;
 
 const DEFAULT_SIGNUP_FORM_VALUE: SignupFormValue = {
   name: "",
@@ -23,7 +23,7 @@ export default function useSignupForm({
         .refine((val) => val === "" || val.length >= 4, { message: "NAME_TOO_SHORT" })
         .refine((val) => val.length <= 20, { message: "NAME_TOO_LONG" }),
       email: z.string().min(1, "EMAIL_IS_REQUIRED").email("EMAIL_IS_INVALID"),
-      password: z.string().min(6, "PASSWORD_TOO_SHORT").max(20, "PASSWORD_TOO_LONG"),
+      password: z.string().min(4, "PASSWORD_TOO_SHORT").max(20, "PASSWORD_TOO_LONG"),
     }),
   );
 

@@ -21,7 +21,7 @@ urlpatterns = [
     # POST /api/account/signup/
     path(
         "signup/",
-        AccountUserViewSet.as_view({"post": "create"}),
+        AccountSignupView.as_view(),
         name="account_signup",
     ),
     # POST /api/account/signout/

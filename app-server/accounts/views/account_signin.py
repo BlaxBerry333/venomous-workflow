@@ -1,14 +1,11 @@
+import logging
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.core.cache import cache
-from django.conf import settings
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
-import logging
-from ..common.constants import REDIS_ACCOUNT_USERS_KEY
+
 
 logger = logging.getLogger(__name__)
 
@@ -45,18 +42,6 @@ class AccountSigninView(APIView):
             # 使用 Django 自带的登陆逻辑
             login(request, user)
 
-            # 缓存用户信息到 Redis
-            # 缓存时间为 JWT 过期时间 + 5min ( 20min )
-            # 缓存处理异常时记录错误日志但不影响登录流程
-            try:
-                jwt_timeout = int(
-                    settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds()
-                )
-                cache.hset(REDIS_ACCOUNT_USERS_KEY, str(user.id), "1")
-                cache.expire(REDIS_ACCOUNT_USERS_KEY, jwt_timeout + 5 * 60)
-            except Exception as e:
-                logger.error(f"Failed to cache user info: {str(e)}")
-
             # 生成并返回 AccessToken 与 RefreshToken
             refresh = RefreshToken.for_user(user)
             return Response(
@@ -68,7 +53,7 @@ class AccountSigninView(APIView):
             )
 
         except Exception as e:
-            logger.error(f"System error during signin: {str(e)}")
+            logger.error("System error during signin: %s", str(e))
             return Response(
                 {"error": "System error during signin."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,

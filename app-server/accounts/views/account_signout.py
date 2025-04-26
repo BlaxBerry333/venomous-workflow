@@ -1,10 +1,9 @@
+import logging
 from django.contrib.auth import logout
-from django.core.cache import cache
+from rest_framework import status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions
-import logging
-from ..common.constants import REDIS_ACCOUNT_USERS_KEY
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 logger = logging.getLogger(__name__)
 
@@ -27,13 +26,16 @@ class AccountSignoutView(APIView):
             )
 
         try:
-            # 清除 Redis 中的用户缓存
-            # 缓存清除失败不影响登出流程，但需要记录日志
+            # 验证 token 是否有效
+            # 使用DRF SimpleJWT的验证方式
             try:
-                cache.hdel(REDIS_ACCOUNT_USERS_KEY, str(request.user.id))
-            except Exception as cache_err:
-                logger.error(
-                    f"Failed to clear cache for user {request.user.id}: {str(cache_err)}"
+                auth = JWTAuthentication()
+                auth.authenticate(request)
+            except Exception as e:
+                logger.error("Invalid token: %s", str(e))
+                return Response(
+                    {"error": "Invalid token."},
+                    status=status.HTTP_401_UNAUTHORIZED,
                 )
 
             # 使用 Django 自带的退出逻辑
@@ -42,7 +44,7 @@ class AccountSignoutView(APIView):
                 logout(request)
             except Exception as logout_err:
                 logger.error(
-                    f"Failed to logout user {request.user.id}: {str(logout_err)}"
+                    "Failed to logout user %s: %s", request.user.id, str(logout_err)
                 )
                 return Response(
                     {"error": "Failed to signout."},
@@ -55,7 +57,7 @@ class AccountSignoutView(APIView):
             )
 
         except Exception as e:
-            logger.error(f"System error during signout: {str(e)}")
+            logger.error("System error during signout: %s", str(e))
             return Response(
                 {"error": "System error during signout."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
