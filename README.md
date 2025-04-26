@@ -1,18 +1,23 @@
 # Venomous Workflow
 
 - [Overview](#overview)
+- [Tech Stack](#tech-stack)
 - [Usage](#usage)
   - [Local Setup](#local-setup)
   - [Create Superuser](#create-superuser)
-  - [Troubleshooting](#troubleshooting)
 
 ## Overview
+
+This is a project that aims to provide a workflow management system.
+
+## Tech Stack
 
 |                               | Port   | Main Skills                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ----------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Dashboard](./app-dashboard/) | `5000` | <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/web-infrastructure--docker.png?raw=true" style="width:40px;" /> <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/web-frontend--react.png?raw=true" style="width:40px;" /> <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/web-frontend--vite.png?raw=true" style="width:40px;" />                 |
 | [Server](./app-server/)       | `5200` | <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/web-infrastructure--docker.png?raw=true" style="width:40px;" /> <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/web-backend--django.png?raw=true" style="width:40px;" /> <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/web-backend--django-rest-framework.png?raw=true" style="width:40px;" /> |
 | DataBase                      | `5300` | <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/web-infrastructure--docker.png?raw=true" style="width:40px;" /> <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/database--postgresql.png?raw=true" style="width:40px;" />                                                                                                                                                                             |
+| Cache                         | `5400` | <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/web-infrastructure--docker.png?raw=true" style="width:40px;" /> <img src="https://github.com/BlaxBerry333/programming-notes/blob/main/docs/public/static/skill-icons/database--redis.png?raw=true" style="width:40px;" />                                                                                                                                                                                  |
 
 ## Usage
 
@@ -29,33 +34,10 @@
 
 ### Create Superuser
 
-> - USERNAME: admin
-> - EMAIL: admin@example.com
-> - PASSWORD: admin
+[More Details](./app-server/README.md#create-superuser)
 
-```zsh
-% make entry CONTAINER=server
-root@[CONTAINER_ID]:/app# \
-    export DJANGO_SUPERUSER_USERNAME=admin && \
-    export DJANGO_SUPERUSER_EMAIL=admin@example.com && \
-    export DJANGO_SUPERUSER_PASSWORD=admin && \
-    python manage.py createsuperuser --noinput
-root@[CONTAINER_ID]:/app# exit
-```
+<!-- ### Troubleshooting
 
-### Troubleshooting
-
-> - `django.db.utils.ProgrammingError: relation "accounts_customusermodel" does not exist`
-
-```zsh
-% make entry CONTAINER=server
-root@[CONTAINER_ID]:/app# \
-    python manage.py makemigrations accounts && \
-    python manage.py migrate accounts && \
-    manage.py migrate
-```
-
-<!-- 
 > - API connection too f\*\*\*ing slow in production env ?
 > - API connection failure in production env ?
 

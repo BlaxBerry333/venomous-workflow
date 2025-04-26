@@ -22,11 +22,19 @@ class CustomUserManager(UserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
         return self._create_user(email, password, **extra_fields)
 
 
 class CustomUserModel(AbstractBaseUser, PermissionsMixin):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+    )
     email = models.EmailField(
         unique=True,
         blank=False,
@@ -35,7 +43,7 @@ class CustomUserModel(AbstractBaseUser, PermissionsMixin):
         verbose_name="User Email",
     )
     name = models.CharField(
-        max_length=20,
+        max_length=50,
         unique=False,
         blank=False,
         null=False,
@@ -65,7 +73,7 @@ class CustomUserModel(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["name"]
 
     class Meta:
         verbose_name = "User"

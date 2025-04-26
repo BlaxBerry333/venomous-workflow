@@ -17,7 +17,7 @@ This is a dashboard for Venomous Workflow. It is a web application that allows y
 - typescript v5
 - vite v6
 - react-router-dom v6
-- react-query
+- react-query v5
 - react-hook-form v7
 - reactflow v12
 - zod v3
@@ -37,22 +37,19 @@ This is a dashboard for Venomous Workflow. It is a web application that allows y
 
 ### Create Superuser
 
-> - USERNAME: admin
-> - EMAIL: admin@example.com
-> - PASSWORD: admin
-
-```zsh
-% make entry CONTAINER=server
-root@[CONTAINER_ID]:/app# \
-    export DJANGO_SUPERUSER_USERNAME=admin && \
-    export DJANGO_SUPERUSER_EMAIL=admin@example.com && \
-    export DJANGO_SUPERUSER_PASSWORD=admin && \
-    python manage.py createsuperuser --noinput
-root@[CONTAINER_ID]:/app# exit
-```
+[More Details](../app-server/README.md#create-superuser)
 
 ### Change Liberaries
 
 ```zsh
-% yarn add [PACKAGE_NAME]
+# 1. update requirements.txt
+% make stop-all
+
+# 2. build images
+% make build-all
+
+# 3. setup containers
+% make setup-all ENV=dev    # dev environment
+% make setup-all ENV=prod   # prod environment
+% make setup-all            # prod environment
 ```

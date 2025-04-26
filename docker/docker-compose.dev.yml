@@ -9,12 +9,14 @@ services:
       dockerfile: docker/Dockerfile.dev
     ports:
       - 5000:5000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - NODE_ENV=development
       - VITE_APP_SERVER_DOMAIN=http://host.docker.internal:5200
     volumes:
       - ../app-dashboard:/app
-      - /app/node_modules  # 必须要有此行以解决 Vite 报错: Cannot find module @rollup/rollup-linux-x64-gnu on Docker container
+      - /app/node_modules # 必须要有此行以解决 Vite 报错: Cannot find module @rollup/rollup-linux-x64-gnu on Docker container
     networks:
       - venomous_workflow_network
 
@@ -38,6 +40,9 @@ services:
       - APP_SERVER_REDIS_HOST=workflow_server_redis
       - APP_SERVER_REDIS_PORT=6379 # 容器内通信不是宿主机，所以使用默认的 6379
     command: sh -c "\
+      python manage.py makemigrations accounts && \
+      python manage.py migrate accounts && \
+      python manage.py migrate && \
       python manage.py runserver 0.0.0.0:5200
       "
     depends_on:
@@ -69,11 +74,22 @@ services:
     networks:
       - venomous_workflow_network
 
+  # Venomous Workflow Server Redis
+  # ====================================================================================================
+  workflow_server_redis:
+    image: redis:6.2.4
+    container_name: server_redis
+    ports:
+      - 5400:6379
+    volumes:
+      - workflow_server_redis:/data
+    networks:
+      - venomous_workflow_network
 
 networks:
   venomous_workflow_network:
     driver: bridge
 
-
 volumes:
   workflow_server_db:
+  workflow_server_redis:
