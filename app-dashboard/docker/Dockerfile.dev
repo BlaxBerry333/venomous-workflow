@@ -8,8 +8,7 @@ RUN apk add --no-cache git
 
 # Copy package files and install dependencies
 COPY package*.json yarn.lock ./
-RUN yarn cache clean
-RUN yarn install
+RUN npm install
 
 # Copy project files to the container
 COPY . .
@@ -19,4 +18,4 @@ COPY envs ./envs
 EXPOSE 5000
 
 # Start the development server
-CMD ["yarn", "start:dev"]
+CMD ["npm", "run", "start:dev"]
