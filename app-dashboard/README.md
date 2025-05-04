@@ -19,6 +19,7 @@ This is a dashboard for Venomous Workflow. It is a web application that allows y
 - react-router-dom v6
 - react-query v5
 - react-hook-form v7
+- react-i18n v15
 - reactflow v12
 - zod v3
 
@@ -42,13 +43,17 @@ This is a dashboard for Venomous Workflow. It is a web application that allows y
 ### Change Liberaries
 
 ```zsh
-# 1. update requirements.txt
+# 1. update or install package
+% yarn upgrade <package>
+% yarn add <package>
+
+# 2. stop containers
 % make stop-all
 
-# 2. build images
+# 3. rebuild images
 % make build-all
 
-# 3. setup containers
+# 4. setup containers
 % make setup-all ENV=dev    # dev environment
 % make setup-all ENV=prod   # prod environment
 % make setup-all            # prod environment
