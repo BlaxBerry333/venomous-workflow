@@ -1,12 +1,14 @@
 import { useAccountSignout } from "@/modules/api/hooks/account-auth";
 import { useAccountUserDetail } from "@/modules/api/hooks/account-user";
+import { useTranslation } from "@/modules/languages";
 import { useRouteNavigate } from "@/modules/router/hooks";
 import ROUTE_PATHS from "@/modules/router/paths";
+import { handleFormatDatetime } from "@/modules/tools";
 import { memo, useCallback, useMemo, type NamedExoticComponent } from "react";
 import {
+  Avatar,
   ConfirmModal,
   Flex,
-  LazyImage,
   Menu,
   MenuItem,
   Modal,
@@ -21,6 +23,9 @@ const AdminRouteLayoutHeaderAccount: NamedExoticComponent = memo(() => {
   const { data } = useAccountUserDetail();
   const { mutateAsync: signout, isPending: isSigningout } = useAccountSignout();
 
+  const { t: tCommon } = useTranslation("common");
+  const { t: tAuth } = useTranslation("auth");
+
   const { replace } = useRouteNavigate();
   const toast = useToast();
 
@@ -30,43 +35,90 @@ const AdminRouteLayoutHeaderAccount: NamedExoticComponent = memo(() => {
   const handleConfirmSignout = useCallback(async () => {
     await signout()
       .then(() => {
-        toast({ type: "success", title: "退出登陆", description: "期待下次访问" });
+        toast({
+          type: "success",
+          title: tAuth("alerts.signup-succeed"),
+          description: tAuth("alerts.signout-succeed-info"),
+        });
         replace(ROUTE_PATHS.AUTH.ROOT);
       })
       .catch((error) =>
-        toast({ type: "error", title: "退出登陆失败", description: error.message }),
+        toast({
+          type: "error",
+          title: tAuth("alerts.signout-failed"),
+          description: error?.response?.data?.error ?? error.message,
+        }),
       );
-  }, [replace, signout, toast]);
+  }, [replace, signout, toast, tAuth]);
 
   const accountMenuItems = useMemo<MenuProps["items"]>(
     () => [
       {
-        label: "账号详情",
+        label: tAuth("page-messages.account-info"),
         icon: "solar:user-circle-line-duotone",
         onClick: () => modalHanderOfDetail.openModal(),
       },
       {
-        label: "退出登陆",
+        label: tAuth("page-messages.signout"),
         icon: "solar:logout-2-line-duotone",
         sx: { color: "error.main" },
         onClick: () => modalHanderOfSignout.openModal(),
       },
     ],
-    [modalHanderOfDetail, modalHanderOfSignout],
+    [modalHanderOfDetail, modalHanderOfSignout, tAuth],
   );
+
+  const accountInfoItems = useMemo<Array<{ label: string; value: string }>>(() => {
+    if (!data) return [];
+    const { name, email, isSuperuser, isStaff, lastLogin, dateJoined } = data;
+    const formattedLastLogin = handleFormatDatetime(lastLogin);
+    const formattedDateJoined = handleFormatDatetime(dateJoined);
+    return [
+      { label: tAuth("account-info.name"), value: name },
+      { label: tAuth("account-info.email"), value: email },
+      {
+        label: tAuth("account-info.roles"),
+        value: isSuperuser
+          ? tAuth("account-info.superuser")
+          : isStaff
+            ? tAuth("account-info.adminuser")
+            : tAuth("account-info.normaluser"),
+      },
+      {
+        label: tAuth("account-info.lastLogin"),
+        value: `${formattedLastLogin.DateTime} ( ${formattedLastLogin.FromNow} )`,
+      },
+      {
+        label: tAuth("account-info.dateJoined"),
+        value: `${formattedDateJoined.DateTime} ( ${formattedDateJoined.FromNow} )`,
+      },
+    ];
+  }, [data, tAuth]);
 
   return (
     <>
       <Popper
         position="bottom"
         renderPopperHandler={({ openPopper }) => (
-          <div onClick={openPopper} style={{ padding: "8px", cursor: "pointer" }}>
-            <LazyImage
+          <Flex
+            row
+            onClick={openPopper}
+            sx={{ width: 40, cursor: "pointer", justifyContent: "center" }}
+          >
+            <Avatar
+              alt="User Avatar"
               src="https://avatars.githubusercontent.com/u/166675080?v=4"
-              width={28}
-              height={28}
+              width={32}
+              withIconBadge={data?.isSuperuser || data?.isStaff}
+              iconBadgeIcon={
+                data?.isSuperuser
+                  ? "solar:crown-star-bold-duotone"
+                  : data?.isStaff
+                    ? "solar:crown-line-bold-duotone"
+                    : ""
+              }
             />
-          </div>
+          </Flex>
         )}
       >
         <Menu
@@ -82,30 +134,13 @@ const AdminRouteLayoutHeaderAccount: NamedExoticComponent = memo(() => {
         closeModal={modalHanderOfDetail.closeModal}
         isPrevented={false}
       >
-        <Flex gap={2}>
-          <div>
-            <Text isLabel text="用户名" />
-            <Text bold text={data?.name || ""} />
-          </div>
-          <div>
-            <Text isLabel text="用户邮箱" />
-            <Text bold text={data?.email || ""} />
-          </div>
-          <div>
-            <Text isLabel bold text="用户身份" />
-            <Text
-              bold
-              text={data?.isSuperuser ? "超级管理员" : data?.isStaff ? "普通管理员" : "普通用户"}
-            />
-          </div>
-          <div>
-            <Text isLabel text="登陆日期" />
-            <Text bold text={data?.lastLogin || ""} />
-          </div>
-          <div>
-            <Text isLabel text="创建日期" />
-            <Text bold text={data?.dateJoined || ""} />
-          </div>
+        <Flex gap={2} p={"8px"}>
+          {accountInfoItems.map((item) => (
+            <div key={item.label}>
+              <Text bold isLabel text={item.label} />
+              <Text bold text={item.value} />
+            </div>
+          ))}
         </Flex>
       </Modal>
 
@@ -114,10 +149,10 @@ const AdminRouteLayoutHeaderAccount: NamedExoticComponent = memo(() => {
         isSubmitting={isSigningout}
         closeModal={modalHanderOfSignout.closeModal}
         onSubmit={handleConfirmSignout}
-        title="你确定吗?"
-        contentMessage="你确定要退出登陆吗？该操作无法撤销。"
-        cancelButtonText="取消"
-        confirmButtonText="确认"
+        title={tCommon("confirm-messages.SINGOUT")}
+        contentMessage={tCommon("confirm-messages.CANTNOT_BE_UNDONE")}
+        cancelButtonText={tCommon("actions.cancel")}
+        confirmButtonText={tCommon("actions.confirm")}
       />
     </>
   );

@@ -1,6 +1,7 @@
 import { SigninForm } from "@/features/auth/signin";
 import type { SigninFormValue } from "@/features/auth/signin/useSigninForm";
 import { useAccountSignin } from "@/modules/api/hooks/account-auth";
+import { useTranslation } from "@/modules/languages";
 import { useRouteNavigate } from "@/modules/router/hooks";
 import { AuthRouteLayoutTitle } from "@/modules/router/layouts";
 import ROUTE_PATHS from "@/modules/router/paths";
@@ -10,6 +11,8 @@ import { useToast } from "venomous-ui";
 const AuthSigninView: NamedExoticComponent = memo(() => {
   const { mutateAsync: signin, isPending: isSigningin } = useAccountSignin();
 
+  const { t: tAuth } = useTranslation("auth");
+
   const { replace } = useRouteNavigate();
   const toast = useToast();
 
@@ -17,23 +20,33 @@ const AuthSigninView: NamedExoticComponent = memo(() => {
     async (formValue: SigninFormValue) => {
       await signin(formValue)
         .then(() => {
-          toast({ type: "success", title: "登陆成功", description: "欢迎回来" });
+          toast({
+            type: "success",
+            title: tAuth("alerts.signin-succeed"),
+            description: tAuth("alerts.signin-succeed-info"),
+          });
           replace(ROUTE_PATHS.ADMIN.ROOT);
         })
         .catch((error) => {
-          toast({ type: "error", title: "登陆失败", description: error.message });
+          const errorMessage = error?.response?.data?.error ?? error.message;
+          const errorStatus = error?.response?.status;
+          toast({
+            type: "error",
+            title: tAuth("alerts.signin-failed"),
+            description: `${errorStatus} ${errorMessage}`,
+          });
         });
     },
-    [replace, signin, toast],
+    [replace, signin, toast, tAuth],
   );
 
   return (
     <>
       <AuthRouteLayoutTitle
-        title="用户登陆"
-        subtitle="没有账号?"
-        subTitleExtraText="创建一个新账号!"
-        subTitleExtraUrl="/auth/signup"
+        title={tAuth("page-messages.signin")}
+        subtitle={tAuth("page-messages.DO_NOT_HAVE_AN_ACCOUNT")}
+        subTitleExtraText={tAuth("page-messages.CREATE_AN_ACCOUNT")}
+        subTitleExtraUrl={ROUTE_PATHS.AUTH.SIGNUP}
       />
 
       <SigninForm isSubmitting={isSigningin} handleOnSubmit={handleOnSubmit} />

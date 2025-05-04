@@ -1,0 +1,44 @@
+{
+  "settings": {
+    "title": "設定",
+    "title-theme-mode": "テーマモード",
+    "title-theme-palettes": "テーマカラー",
+    "title-theme-languages": "言語",
+
+    "theme-mode-change-success": "テーマモードの変更に成功しました",
+    "theme-mode-change-failed": "テーマモードの変更に失敗しました",
+    "theme-palette-change-success": "テーマカラーの変更に成功しました",
+    "theme-palette-change-failed": "テーマカラーの変更に失敗しました",
+    "languages-change-success": "言語の変更に成功しました",
+    "languages-change-failed": "言語の変更に失敗しました"
+  },
+
+  "actions": {
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "submit": "送信",
+    "save": "保存",
+    "reset": "リセット",
+    "delete": "削除",
+    "edit": "編集",
+    "create": "作成",
+    "update": "更新",
+    "search": "検索"
+  },
+
+  "validations": {
+    "REQUIRED": "入力必須です",
+    "INVALID": "無効な内容です",
+    "TOO_SHORT": "内容が短すぎます",
+    "TOO_LONG": "内容が長すぎます",
+    "NOT_MATCH": "内容が一致しません"
+  },
+
+  "confirm-messages": {
+    "CANTNOT_BE_UNDONE": "この操作は取り消せません。",
+    "DELETE": "削除して大丈夫ですか?",
+    "SAVE": "保存して大丈夫ですか?",
+    "SUBMIT": "提出して大丈夫ですか?",
+    "SINGOUT": "ログアウトして大丈夫ですか?"
+  }
+}

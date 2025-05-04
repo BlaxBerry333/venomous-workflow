@@ -1,4 +1,4 @@
-export { default as RouterProvider } from "./RouterProvider";
+export { RouterProvider } from "./providers";
 export { default as RouteView } from "./RouteView";
 
 export * from "./helpers";

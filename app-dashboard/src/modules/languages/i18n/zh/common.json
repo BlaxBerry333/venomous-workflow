@@ -1,0 +1,44 @@
+{
+  "settings": {
+    "title": "设置",
+    "title-theme-mode": "主题模式",
+    "title-theme-palettes": "主题颜色",
+    "title-theme-languages": "主题语言",
+
+    "theme-mode-change-success": "主题模式切换成功",
+    "theme-mode-change-failed": "主题模式切换失败",
+    "theme-palette-change-success": "主题颜色切换成功",
+    "theme-palette-change-failed": "主题颜色切换失败",
+    "languages-change-success": "语言切换成功",
+    "languages-change-failed": "语言切换失败"
+  },
+
+  "actions": {
+    "cancel": "取消",
+    "confirm": "确认",
+    "submit": "提交",
+    "save": "保存",
+    "reset": "重置",
+    "delete": "删除",
+    "edit": "编辑",
+    "create": "创建",
+    "update": "更新",
+    "search": "搜索"
+  },
+
+  "validations": {
+    "REQUIRED": "内容不能为空",
+    "INVALID": "无效内容",
+    "TOO_SHORT": "内容太短",
+    "TOO_LONG": "内容太长",
+    "NOT_MATCH": "内容不匹配"
+  },
+
+  "confirm-messages": {
+    "CANTNOT_BE_UNDONE": "此操作无法恢复。",
+    "DELETE": "确定删除吗?",
+    "SAVE": "确定保存吗?",
+    "SUBMIT": "确定提交吗?",
+    "SINGOUT": "确定退出登陆吗?"
+  }
+}

@@ -1,8 +1,8 @@
 import { isValidJSON } from "./handle-json";
 
-type WetStorageType = "localStorage" | "sessionStorage";
+type WebStorageType = "localStorage" | "sessionStorage";
 
-export default function handleWebStorage(storageType: WetStorageType) {
+export default function handleWebStorage(storageType: WebStorageType) {
   return {
     get: <T = string>(key: string, options: { defaultValue: T }): T => {
       let storedValue: string | null = null;

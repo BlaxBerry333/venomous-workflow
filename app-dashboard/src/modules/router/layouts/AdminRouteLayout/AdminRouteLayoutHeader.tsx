@@ -1,7 +1,8 @@
-import { memo, type NamedExoticComponent } from "react";
+import { lazy, memo, Suspense, type NamedExoticComponent } from "react";
 import { AdminFullScreen, AdminHeader, Flex } from "venomous-ui";
 import LayoutSettings from "../LayoutSettings";
-import AdminRouteLayoutHeaderAccount from "./AdminRouteLayoutHeaderAccount";
+
+const AdminRouteLayoutHeaderAccount = lazy(() => import("./AdminRouteLayoutHeaderAccount"));
 
 const AdminRouteLayoutHeader: NamedExoticComponent = memo(() => {
   return (
@@ -10,7 +11,9 @@ const AdminRouteLayoutHeader: NamedExoticComponent = memo(() => {
 
       {/* Actions */}
       <Flex row>
-        <AdminRouteLayoutHeaderAccount />
+        <Suspense fallback={null}>
+          <AdminRouteLayoutHeaderAccount />
+        </Suspense>
         <AdminFullScreen />
         <LayoutSettings />
       </Flex>

@@ -1,1 +1,1 @@
-export { default as QueryClientProvider } from "./QueryClientProvider";
+export { QueryClientProvider } from "./providers";

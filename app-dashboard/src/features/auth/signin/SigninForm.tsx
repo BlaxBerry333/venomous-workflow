@@ -1,3 +1,4 @@
+import { useTranslation } from "@/modules/languages";
 import { memo, type NamedExoticComponent } from "react";
 import {
   FormUncontrolled,
@@ -15,6 +16,9 @@ type SigninFormProps = {
 
 const SigninForm: NamedExoticComponent<SigninFormProps> = memo(
   ({ defaultValues, handleOnSubmit, isSubmitting }) => {
+    const { t: tCommon } = useTranslation("common");
+    const { t: tAuth } = useTranslation("auth");
+
     const { form } = useSigninForm({ defaultValues });
 
     return (
@@ -23,14 +27,14 @@ const SigninForm: NamedExoticComponent<SigninFormProps> = memo(
         onSubmit={(formValue) => void handleOnSubmit(formValue)}
       >
         {/* name */}
-        <InputUncontrolled name="email" label="登录邮箱" fullWidth />
+        <InputUncontrolled name="email" label={tAuth("form-labels.name")} fullWidth />
 
         {/* password */}
-        <PasswordUncontrolled name="password" label="登录密码" fullWidth />
+        <PasswordUncontrolled name="password" label={tAuth("form-labels.password")} fullWidth />
 
         <FormUncontrolledAction
-          cancelButtonText="清空"
-          submitButtonText="确认"
+          cancelButtonText={tCommon("actions.reset")}
+          submitButtonText={tCommon("actions.confirm")}
           isSubmitting={isSubmitting}
         />
       </FormUncontrolled>

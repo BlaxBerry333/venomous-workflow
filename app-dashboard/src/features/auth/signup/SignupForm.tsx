@@ -1,3 +1,4 @@
+import { useTranslation } from "@/modules/languages";
 import { memo, type NamedExoticComponent } from "react";
 import {
   FormUncontrolled,
@@ -16,6 +17,9 @@ type SignupFormProps = {
 
 const SignupForm: NamedExoticComponent<SignupFormProps> = memo(
   ({ defaultValues, handleOnSubmit, isSubmitting }) => {
+    const { t: tCommon } = useTranslation("common");
+    const { t: tAuth } = useTranslation("auth");
+
     const { form, handleAutoSetNameValue } = useSignupForm({ defaultValues });
 
     return (
@@ -25,20 +29,25 @@ const SignupForm: NamedExoticComponent<SignupFormProps> = memo(
       >
         {/* name */}
         <div onBlur={handleAutoSetNameValue}>
-          <InputUncontrolled name="name" label="登录名" fullWidth />
+          <InputUncontrolled name="name" label={tAuth("form-labels.name")} fullWidth />
         </div>
 
         {/* email */}
         <div onBlur={handleAutoSetNameValue}>
-          <InputUncontrolled name="email" label="登录邮箱" fullWidth />
+          <InputUncontrolled name="email" label={tAuth("form-labels.email")} fullWidth />
         </div>
 
         {/* password */}
-        <PasswordUncontrolled name="password" label="登录密码" fullWidth />
+        <PasswordUncontrolled name="password" label={tAuth("form-labels.password")} fullWidth />
+        <PasswordUncontrolled
+          name="passwordConfirm"
+          label={tAuth("form-labels.password-confirm")}
+          fullWidth
+        />
 
         <FormUncontrolledAction
-          cancelButtonText="清空"
-          submitButtonText="确认"
+          cancelButtonText={tCommon("actions.reset")}
+          submitButtonText={tCommon("actions.confirm")}
           isSubmitting={isSubmitting}
         />
       </FormUncontrolled>

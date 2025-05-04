@@ -1,0 +1,44 @@
+{
+  "settings": {
+    "title": "Settings",
+    "title-theme-mode": "Theme Mode",
+    "title-theme-palettes": "Theme Palettes",
+    "title-theme-languages": "Theme Languages",
+
+    "theme-mode-change-success": "Theme Mode change Success",
+    "theme-mode-change-failed": "Theme Mode change Failed",
+    "theme-palette-change-success": "Theme Palettes change Success",
+    "theme-palette-change-failed": "Theme Palettes change Failed",
+    "languages-change-success": "Theme Languages change Success",
+    "languages-change-failed": "Theme Languages change Failed"
+  },
+
+  "actions": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "submit": "Sibmit",
+    "save": "Save",
+    "reset": "Reset",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "search": "Search"
+  },
+
+  "validations": {
+    "REQUIRED": "Content is required",
+    "INVALID": "Content is invalid",
+    "TOO_SHORT": "Content is too short",
+    "TOO_LONG": "Content is too long",
+    "NOT_MATCH": "Content is not match"
+  },
+
+  "confirm-messages": {
+    "CANTNOT_BE_UNDONE": "This action cannot be undone.",
+    "DELETE": "Are you sure to delete?",
+    "SAVE": "Are you sure to save?",
+    "SUBMIT": "Are you sure to submit?",
+    "SINGOUT": "Are you sure to signout?"
+  }
+}
