@@ -2646,7 +2646,7 @@ use-sync-external-store@^1.0.0:
 
 "venomous-ui@git+https://github.com/BlaxBerry333/venomous-ui":
   version "0.0.1"
-  resolved "git+https://github.com/BlaxBerry333/venomous-ui#18b9fd02c78c973391088334116453d086264fc6"
+  resolved "git+https://github.com/BlaxBerry333/venomous-ui#aea4c0d17a35a8b9c2ece8ed8c634f3f43d1c157"
   dependencies:
     "@emotion/react" "^11.14.0"
     "@emotion/styled" "^11.14.0"
