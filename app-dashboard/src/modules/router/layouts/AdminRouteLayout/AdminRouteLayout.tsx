@@ -6,6 +6,7 @@ import {
   type PropsWithChildren,
 } from "react";
 import { Container, Flex, Loading } from "venomous-ui";
+
 import LayoutBackgroundImage from "../LayoutBackgroundImage";
 import AdminRouteLayoutHeader from "./AdminRouteLayoutHeader";
 import RouteAdminLayoutSideNavMenu from "./AdminRouteLayoutSideNavMenu";
@@ -30,7 +31,7 @@ const AdminRouteLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childr
   }, []);
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="fullwidth">
       {/* Background Image */}
       <LayoutBackgroundImage />
 

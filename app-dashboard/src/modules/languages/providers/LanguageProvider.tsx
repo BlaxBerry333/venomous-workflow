@@ -1,6 +1,6 @@
-import type { NamedExoticComponent, PropsWithChildren } from "react";
-import { memo } from "react";
+import { memo, type NamedExoticComponent, type PropsWithChildren } from "react";
 import { I18nextProvider } from "react-i18next";
+
 import { dayjsInstance, i18nextInstance } from "../helpers";
 import { useLanguage } from "../hooks";
 

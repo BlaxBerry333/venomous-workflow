@@ -1,6 +1,7 @@
-import { useRouteState } from "@/modules/router";
 import { memo, type NamedExoticComponent } from "react";
 import { Text } from "venomous-ui";
+
+import { useRouteState } from "@/modules/router";
 
 const Error404Page: NamedExoticComponent = memo(() => {
   const { state } = useRouteState<{ reason: string }>();

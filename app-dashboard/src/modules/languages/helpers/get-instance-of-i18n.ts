@@ -2,6 +2,7 @@ import i18next, { type i18n } from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import resourcesToBackend from "i18next-resources-to-backend";
 import { initReactI18next } from "react-i18next";
+
 import { LANGUAGE_STORE_KEY, LANGUAGE_STORE_POSITION } from "./handle-language-storage";
 import {
   DEFAULT_LANGUAGE,

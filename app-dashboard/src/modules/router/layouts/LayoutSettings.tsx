@@ -1,7 +1,8 @@
-import { useLanguage, useTranslation } from "@/modules/languages";
-import { SUPPORTED_LANGUAGE_OPTIONS } from "@/modules/languages/helpers";
 import { memo, type NamedExoticComponent } from "react";
 import { AdminSettingsDrawer, AdminSettingsDrawerBlock, Icon, Text, useToast } from "venomous-ui";
+
+import { useLanguage, useTranslation } from "@/modules/languages";
+import { SUPPORTED_LANGUAGE_OPTIONS } from "@/modules/languages/helpers";
 
 const LayoutSettings: NamedExoticComponent = memo(() => {
   const { t: tCommon, changeLanguage } = useTranslation("common");

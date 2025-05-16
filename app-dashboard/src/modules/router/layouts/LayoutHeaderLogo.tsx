@@ -1,7 +1,8 @@
-import { BASIC_CONFIGS } from "@/configs";
 import { memo, type NamedExoticComponent } from "react";
 import { NavLink } from "react-router-dom";
 import { Flex, LazyImage, Text } from "venomous-ui";
+
+import { BASIC_CONFIGS } from "@/configs";
 import LOGO from "/favicon.svg";
 
 const LayoutHeaderLogo: NamedExoticComponent<{ to: string }> = memo(({ to = "/" }) => {

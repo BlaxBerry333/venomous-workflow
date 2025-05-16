@@ -1,10 +1,9 @@
-import { memo, type NamedExoticComponent, type PropsWithChildren } from "react";
-
 import {
   QueryClient as TanstckQueryClient,
   QueryClientProvider as TanstckQueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { memo, type NamedExoticComponent, type PropsWithChildren } from "react";
 
 const queryClient = new TanstckQueryClient({
   defaultOptions: {

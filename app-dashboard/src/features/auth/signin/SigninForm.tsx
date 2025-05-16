@@ -1,4 +1,3 @@
-import { useTranslation } from "@/modules/languages";
 import { memo, type NamedExoticComponent } from "react";
 import {
   FormUncontrolled,
@@ -6,6 +5,8 @@ import {
   InputUncontrolled,
   PasswordUncontrolled,
 } from "venomous-ui";
+
+import { useTranslation } from "@/modules/languages";
 import useSigninForm, { type SigninFormValue } from "./useSigninForm";
 
 type SigninFormProps = {
@@ -27,7 +28,7 @@ const SigninForm: NamedExoticComponent<SigninFormProps> = memo(
         onSubmit={(formValue) => void handleOnSubmit(formValue)}
       >
         {/* name */}
-        <InputUncontrolled name="email" label={tAuth("form-labels.name")} fullWidth />
+        <InputUncontrolled name="email" label={tAuth("form-labels.email")} fullWidth />
 
         {/* password */}
         <PasswordUncontrolled name="password" label={tAuth("form-labels.password")} fullWidth />
