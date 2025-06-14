@@ -1,0 +1,36 @@
+{
+  "node-type": {
+    "Group": "分组",
+    "LogicStart": "逻辑开始",
+    "LogicEnd": "逻辑结束",
+    "LogicCondition": "条件分支",
+    "LogicDatasetInput": "数据集读取",
+    "LogicDatasetOutput": "数据集输出"
+  },
+
+  "actions": {
+    "jump-to-current-node": "定位至当前 Node 的位置"
+  },
+
+  "fields": {
+    "description": "描述",
+
+    "LogicStart": {
+      "variables": {
+        "variable": "变量",
+        "name": "变量名",
+        "type": "变量类型",
+        "defaultValue": "变量默认值"
+      }
+    },
+    "LogicCondition": {
+      "condition": {
+        "type": "条件",
+        "variable": "变量",
+        "operator": "运算符",
+        "value": "变量值",
+        "else": "当 If 与 Elif 都不满足时执行的处理"
+      }
+    }
+  }
+}

@@ -47,5 +47,9 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+
+    optimizeDeps: {
+      include: ["venomous-ui"],
+    },
   };
 });

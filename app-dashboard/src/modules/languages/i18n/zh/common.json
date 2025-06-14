@@ -23,7 +23,10 @@
     "edit": "编辑",
     "create": "创建",
     "update": "更新",
-    "search": "搜索"
+    "search": "搜索",
+    "undo": "撤销",
+    "redo": "重做",
+    "exectue": "运行"
   },
 
   "validations": {
@@ -40,5 +43,10 @@
     "SAVE": "确定保存吗?",
     "SUBMIT": "确定提交吗?",
     "SINGOUT": "确定退出登陆吗?"
+  },
+
+  "messages": {
+    "NO_DATA": "没有数据",
+    "LOADING": "加载中..."
   }
 }

@@ -1,7 +1,9 @@
 import { memo, type NamedExoticComponent } from "react";
 
+import AdminLogicDetailView from "./view";
+
 const AdminLogicDetailPage: NamedExoticComponent = memo(() => {
-  return <div>AdminDraftDetailPage</div>;
+  return <AdminLogicDetailView />;
 });
 
 AdminLogicDetailPage.displayName = "AdminLogicDetailPage";

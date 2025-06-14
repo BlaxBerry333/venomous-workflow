@@ -11,7 +11,13 @@ export const SUPPORTED_LANGUAGES = [
 export type ISupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 export const DEFAULT_LANGUAGE: ISupportedLanguage = SUPPORTED_LANGUAGES[0];
 
-export const SUPPORTED_LANGUAGE_NAMESPACES = ["common", "auth", "admin", "errors"] as const;
+export const SUPPORTED_LANGUAGE_NAMESPACES = [
+  "common",
+  "auth",
+  "admin",
+  "workflow",
+  "errors",
+] as const;
 
 export type ISupportedLanguageNamespace = (typeof SUPPORTED_LANGUAGE_NAMESPACES)[number];
 export const DEFAULT_LANGUAGE_NAMESPACE: ISupportedLanguageNamespace =

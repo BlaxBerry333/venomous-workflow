@@ -39,7 +39,7 @@ const AdminRouteLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childr
         {/* Side Nav Menu */}
         <RouteAdminLayoutSideNavMenu />
 
-        <Flex flex={1} sx={{ position: "relative" }}>
+        <Flex flex={1} gap={0.5} sx={{ position: "relative" }}>
           {/* Header */}
           <AdminRouteLayoutHeader />
 
@@ -49,7 +49,7 @@ const AdminRouteLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childr
               overflow: "scroll",
               scrollBehavior: "smooth",
               width: "100%",
-              height: "calc(100svh - 68px)",
+              height: "calc(100svh - (68px + 8px + 4px))", // 68px = header height, 8px = gap, 4px = padding
             }}
           >
             <Suspense fallback={<Loading />}>{children}</Suspense>

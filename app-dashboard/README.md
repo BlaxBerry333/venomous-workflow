@@ -46,6 +46,7 @@ This is a dashboard for Venomous Workflow. It is a web application that allows y
 # 1. update or install package
 % yarn upgrade <package>
 % yarn add <package>
+% cd ..
 
 # 2. stop containers
 % make stop-all

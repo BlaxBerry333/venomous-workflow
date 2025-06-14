@@ -5,6 +5,8 @@ import { QueryClientProvider } from "./modules/api";
 import { LanguageProvider } from "./modules/languages";
 import { RouterProvider, RouteView } from "./modules/router";
 
+import "../node_modules/venomous-ui/dist/index.css";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider>

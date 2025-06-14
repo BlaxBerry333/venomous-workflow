@@ -1,0 +1,37 @@
+{
+  "node-type": {
+    "Group": "グループ",
+    "LogicStart": "ロジック開始",
+    "LogicEnd": "ロジック終了",
+    "LogicCondition": "条件分岐",
+    "LogicDatasetInput": "データ入力",
+    "LogicDatasetOutput": "データ出力"
+  },
+
+  "actions": {
+    "jump-to-current-node": "ノードの場所にジャンプする"
+  },
+
+  "fields": {
+    "description": "説明",
+
+    "LogicStart": {
+      "variables": {
+        "variable": "変数",
+        "name": "変数名",
+        "type": "変数の型",
+        "defaultValue": "変数のデフォルト値"
+      }
+    },
+
+    "LogicCondition": {
+      "condition": {
+        "type": "条件",
+        "variable": "変数",
+        "operator": "演算子",
+        "value": "変数値",
+        "else": "If と Elif が満たされない場合の処理"
+      }
+    }
+  }
+}

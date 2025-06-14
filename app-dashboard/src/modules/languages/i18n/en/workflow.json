@@ -1,0 +1,37 @@
+{
+  "node-type": {
+    "Group": "Group",
+    "LogicStart": "Logic Start",
+    "LogicEnd": "Logic End",
+    "LogicCondition": "Condition",
+    "LogicDatasetInput": "Dataset Input",
+    "LogicDatasetOutput": "Dataset Output"
+  },
+
+  "actions": {
+    "jump-to-current-node": "Jump to current node"
+  },
+
+  "fields": {
+    "description": "Description",
+
+    "LogicStart": {
+      "variables": {
+        "variable": "Variable",
+        "name": "Variable Name",
+        "type": "Variable Type",
+        "defaultValue": "Variable Default Value"
+      }
+    },
+
+    "LogicCondition": {
+      "condition": {
+        "type": "Type",
+        "variable": "Variable",
+        "operator": "Operator",
+        "value": "Variable Value",
+        "else": "Processing when neither If nor Elif is satisfied"
+      }
+    }
+  }
+}
