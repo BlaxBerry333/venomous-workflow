@@ -7,7 +7,7 @@ const WorkflowPlayground = lazy(() => import("@/features/workflow/components/Pla
 const AdminLogicDetailView: NamedExoticComponent = memo(() => {
   return (
     <WorkflowWrapper>
-      <Flex row gap={0.5} sx={{ height: "100%" }}>
+      <Flex row gap={0.5} sx={{ height: "100%", overflow: "hidden" }}>
         <Suspense fallback={<Loading />}>
           <NodeMenu />
           <WorkflowPlayground />

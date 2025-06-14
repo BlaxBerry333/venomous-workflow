@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Button, Flex, Tooltip, useWorkflowNodeJump } from "venomous-ui";
+import { Button, Flex, Tooltip, useWorkflowNodeJump, useWorkflowPanel } from "venomous-ui";
 
 import type { INode } from "@/features/workflow/types";
 import { useTranslation } from "@/modules/languages";
@@ -8,6 +8,7 @@ import { NodeTitle } from "../custom-nodes/_base";
 const NodePanelHeader = memo<{ node: INode }>(({ node }) => {
   const { t } = useTranslation("workflow");
   const { jumpToSpecificNode } = useWorkflowNodeJump();
+  const { clear } = useWorkflowPanel();
 
   return (
     <Flex
@@ -21,7 +22,8 @@ const NodePanelHeader = memo<{ node: INode }>(({ node }) => {
     >
       <NodeTitle {...node} />
 
-      <Flex row sx={{ justifyContent: "flex-end" }}>
+      <Flex row gap={0} sx={{ justifyContent: "flex-end" }}>
+        {/* Jump to current node */}
         <Tooltip tooltip={t("actions.jump-to-current-node")}>
           <Button
             icon="solar:target-linear"
@@ -30,6 +32,8 @@ const NodePanelHeader = memo<{ node: INode }>(({ node }) => {
             onClick={() => void jumpToSpecificNode(node.id, node.position)}
           />
         </Tooltip>
+
+        <Button icon="material-symbols:close-rounded" isGhost isSquare onClick={clear} />
       </Flex>
     </Flex>
   );

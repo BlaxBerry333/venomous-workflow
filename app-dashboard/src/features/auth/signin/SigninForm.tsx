@@ -1,5 +1,6 @@
 import { memo, type NamedExoticComponent } from "react";
 import {
+  Flex,
   FormUncontrolled,
   FormUncontrolledAction,
   InputUncontrolled,
@@ -27,17 +28,19 @@ const SigninForm: NamedExoticComponent<SigninFormProps> = memo(
         formInstance={form}
         onSubmit={(formValue) => void handleOnSubmit(formValue)}
       >
-        {/* name */}
-        <InputUncontrolled name="email" label={tAuth("form-labels.email")} fullWidth />
+        <Flex gap={2}>
+          {/* name */}
+          <InputUncontrolled name="email" label={tAuth("form-labels.email")} fullWidth />
 
-        {/* password */}
-        <PasswordUncontrolled name="password" label={tAuth("form-labels.password")} fullWidth />
+          {/* password */}
+          <PasswordUncontrolled name="password" label={tAuth("form-labels.password")} fullWidth />
 
-        <FormUncontrolledAction
-          cancelButtonText={tCommon("actions.reset")}
-          submitButtonText={tCommon("actions.confirm")}
-          isSubmitting={isSubmitting}
-        />
+          <FormUncontrolledAction
+            cancelButtonText={tCommon("actions.reset")}
+            submitButtonText={tCommon("actions.confirm")}
+            isSubmitting={isSubmitting}
+          />
+        </Flex>
       </FormUncontrolled>
     );
   },

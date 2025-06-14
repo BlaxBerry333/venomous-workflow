@@ -1,11 +1,13 @@
-import { useTranslation } from "@/modules/languages";
 import { memo, type NamedExoticComponent } from "react";
 import {
+  Flex,
   FormUncontrolled,
   FormUncontrolledAction,
   InputUncontrolled,
   PasswordUncontrolled,
 } from "venomous-ui";
+
+import { useTranslation } from "@/modules/languages";
 import type { SignupFormValue } from "./useSignupForm";
 import useSignupForm from "./useSignupForm";
 
@@ -27,29 +29,31 @@ const SignupForm: NamedExoticComponent<SignupFormProps> = memo(
         formInstance={form}
         onSubmit={(formValue) => void handleOnSubmit(formValue)}
       >
-        {/* name */}
-        <div onBlur={handleAutoSetNameValue}>
-          <InputUncontrolled name="name" label={tAuth("form-labels.name")} fullWidth />
-        </div>
+        <Flex gap={2}>
+          {/* name */}
+          <div onBlur={handleAutoSetNameValue} style={{ width: "100%" }}>
+            <InputUncontrolled name="name" label={tAuth("form-labels.name")} fullWidth />
+          </div>
 
-        {/* email */}
-        <div onBlur={handleAutoSetNameValue}>
-          <InputUncontrolled name="email" label={tAuth("form-labels.email")} fullWidth />
-        </div>
+          {/* email */}
+          <div onBlur={handleAutoSetNameValue} style={{ width: "100%" }}>
+            <InputUncontrolled name="email" label={tAuth("form-labels.email")} fullWidth />
+          </div>
 
-        {/* password */}
-        <PasswordUncontrolled name="password" label={tAuth("form-labels.password")} fullWidth />
-        <PasswordUncontrolled
-          name="passwordConfirm"
-          label={tAuth("form-labels.password-confirm")}
-          fullWidth
-        />
+          {/* password */}
+          <PasswordUncontrolled name="password" label={tAuth("form-labels.password")} fullWidth />
+          <PasswordUncontrolled
+            name="passwordConfirm"
+            label={tAuth("form-labels.password-confirm")}
+            fullWidth
+          />
 
-        <FormUncontrolledAction
-          cancelButtonText={tCommon("actions.reset")}
-          submitButtonText={tCommon("actions.confirm")}
-          isSubmitting={isSubmitting}
-        />
+          <FormUncontrolledAction
+            cancelButtonText={tCommon("actions.reset")}
+            submitButtonText={tCommon("actions.confirm")}
+            isSubmitting={isSubmitting}
+          />
+        </Flex>
       </FormUncontrolled>
     );
   },

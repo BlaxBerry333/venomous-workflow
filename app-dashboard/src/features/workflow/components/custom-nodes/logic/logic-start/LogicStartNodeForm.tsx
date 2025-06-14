@@ -58,7 +58,7 @@ const LogicStartNodeForm = memo(() => {
         {variables.map((variable, index) => {
           const realTimeVariableType = form.watch().variables.find((_, i) => i === index)?.type;
           return (
-            <Flex key={variable.id}  width={1} sx={{ mb: "8px" }}>
+            <Flex key={variable.id} width={1} sx={{ mb: "8px" }}>
               <Flex row gap={0} width={1} alignItems="center" justifyContent="space-between">
                 <Text text={`No.${index + 1}`} bold textColor="primary" isTitle />
                 {/* Delete condition */}
@@ -87,7 +87,7 @@ const LogicStartNodeForm = memo(() => {
                   emptyOptionMessage={tCommon("messages.NO_DATA")}
                 />
               </Flex>
-              
+
               {/* variables.defaultValue */}
               {realTimeVariableType !== LogicVariableType.Boolean && (
                 <InputUncontrolled

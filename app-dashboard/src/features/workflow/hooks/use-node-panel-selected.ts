@@ -1,15 +1,11 @@
 import { isEqual } from "lodash-es";
-import { useCallback, useMemo } from "react";
-import { useWorkflowNodeUpdate, useWorkflowSelectedElements } from "venomous-ui";
+import { useCallback } from "react";
+import { useWorkflowNodeUpdate, useWorkflowPanel } from "venomous-ui";
 
 import type { INode } from "../types";
 
 export default function useNodePanelSelected<T extends INode["data"]["formValue"]>() {
-  const selectedElements = useWorkflowSelectedElements();
-  const selectedNode = useMemo<INode | null>(() => {
-    if (selectedElements.nodes.length === 1) return selectedElements.nodes[0];
-    return null;
-  }, [selectedElements.nodes]);
+  const { selectedNode } = useWorkflowPanel();
 
   const nodeId = selectedNode?.id;
   const nodeFormValue = selectedNode?.data.formValue;

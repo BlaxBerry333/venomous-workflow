@@ -18,6 +18,7 @@ const NodeIcon = memo<{ nodeType: INode["type"] }>(({ nodeType }) => {
         justifyContent: "center",
         backgroundColor: WORKFLOW_CUSTOM_NODE_COLORS[nodeType!],
         color: "white",
+        mr:"8px"
       }}
     >
       <Icon icon={WORKFLOW_CUSTOM_NODE_ICONS[nodeType!]} />

@@ -67,7 +67,7 @@ const LogicConditionNodeForm = memo(() => {
               : LogicConditionType.Elif;
 
           return (
-            <Flex key={condition.id}  width={1} sx={{ mb: "8px" }}>
+            <Flex key={condition.id} width={1} sx={{ mb: "8px" }}>
               {/* Add condition */}
               {isLast && (
                 <Button

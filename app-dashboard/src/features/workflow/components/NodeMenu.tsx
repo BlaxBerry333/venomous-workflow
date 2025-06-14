@@ -1,9 +1,9 @@
 import { memo, useCallback, useMemo, type JSX } from "react";
 import {
+  CollapsedSidebar,
   Flex,
   generateNewNodeToStore,
   Menu,
-  Paper,
   Text,
   type MenuItemProps,
   type MenuProps,
@@ -29,11 +29,13 @@ const NodeMenu = memo(() => {
   const onDragToGenerateNewNode = useCallback(
     (event: React.DragEvent<HTMLDivElement>, nodeType: INodeType) => {
       event.dataTransfer.effectAllowed = "move";
+
+      const defaultFormValues =getNodeDataDefaultFormValue(nodeType)
       generateNewNodeToStore({
         type: nodeType,
         data: {
-          formValue: getNodeDataDefaultFormValue(nodeType),
-          // isInValid:true
+          formValue: defaultFormValues,
+          isInValid: defaultFormValues !== null,
         },
       });
     },
@@ -53,7 +55,6 @@ const NodeMenu = memo(() => {
             cursor: "move",
             userSelect: "none",
             p: "8px",
-            m: "8px",
             "&:last-child": { mb: 0 },
             "&:hover": {
               borderRadius: "8px",
@@ -62,7 +63,7 @@ const NodeMenu = memo(() => {
           }}
         >
           <NodeIcon nodeType={nodeType} />
-          <Text text={item.label} bold isLabel ellipsis />
+          <Text text={item.label} bold isLabel ellipsis  />
         </Flex>
       );
     },
@@ -70,15 +71,29 @@ const NodeMenu = memo(() => {
   );
 
   return (
-    <Paper isOutlined sx={{ height: 1, width: 160, minWidth: 160, p: 0 }}>
-      <Menu
-        isVirtualized
-        height="100%"
-        width="100%"
-        items={menuItems}
-        renderItem={(item) => renderNodeMenuItem(item)}
+    <Flex sx={{ height: `calc(100svh - 80px)` }}>
+      <CollapsedSidebar
+        width={180}
+        collapsedWidth={70}
+        headerHeight={50}
+        defaultIsCollapsed
+        sx={{ height: 1 }}
+        renderHeader={() => (
+          <>
+            <Text bold text="Nodes" ellipsis />
+          </>
+        )}
+        renderContent={() => (
+          <Menu
+            isVirtualized
+            height="100%"
+            width="100%"
+            items={menuItems}
+            renderItem={(item) => renderNodeMenuItem(item)}
+          />
+        )}
       />
-    </Paper>
+    </Flex>
   );
 });
 
