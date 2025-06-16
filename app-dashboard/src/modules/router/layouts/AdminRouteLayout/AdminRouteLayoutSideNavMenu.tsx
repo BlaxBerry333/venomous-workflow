@@ -12,7 +12,7 @@ const AdminRouteLayoutSideNavMenu: NamedExoticComponent = memo(() => {
       renderHeader={() => <LayoutHeaderLogo to="/admin/" />}
       menuItems={menuItems}
       currentPath={pathname}
-      collapseButtonSx={{zIndex: 1000}}
+      collapseButtonSx={{ zIndex: 1000 }}
       sx={{
         height: "calc(100svh - 8px)",
         "& #VenomousUI-Menu": { height: "calc(100svh - 50px - 18px)" },

@@ -9,7 +9,12 @@
   },
 
   "actions": {
-    "jump-to-current-node": "Jump to current node"
+    "jump-to-current-node": "Jump to Current Node",
+    "edit-variables": "Edit Variables"
+  },
+
+  "info": {
+    "variable-list": "Variable List"
   },
 
   "fields": {

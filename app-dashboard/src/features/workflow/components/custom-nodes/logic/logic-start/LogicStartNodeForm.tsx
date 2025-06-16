@@ -4,11 +4,15 @@ import {
   createZodSchema,
   Flex,
   FormUncontrolled,
+  Icon,
   InputUncontrolled,
+  Modal,
+  Paper,
   SelectUncontrolled,
   Text,
   useFieldArray,
   useForm,
+  useModal,
   zodResolver,
 } from "venomous-ui";
 import z from "zod";
@@ -25,6 +29,8 @@ import { useLanguage, useTranslation } from "@/modules/languages";
 const LogicStartNodeForm = memo(() => {
   const { t: tCommon } = useTranslation("common");
   const { t: tWorkflow } = useTranslation("workflow");
+
+  const editModalHandler = useModal();
 
   const { selectedNode, updateSelectedNodeFormValue, updateSelectedNodeData } =
     useNodePanelSelected<ILogicStartNodeFormValue>();
@@ -55,75 +61,111 @@ const LogicStartNodeForm = memo(() => {
         <InputUncontrolled name="description" label={tWorkflow(`fields.description`)} fullWidth />
 
         {/* variables */}
-        {variables.map((variable, index) => {
-          const realTimeVariableType = form.watch().variables.find((_, i) => i === index)?.type;
-          return (
-            <Flex key={variable.id} width={1} sx={{ mb: "8px" }}>
-              <Flex row gap={0} width={1} alignItems="center" justifyContent="space-between">
-                <Text text={`No.${index + 1}`} bold textColor="primary" isTitle />
-                {/* Delete condition */}
-                <Button
-                  icon="solar:trash-bin-trash-line-duotone"
-                  color="error"
-                  isGhost
-                  isCircle
-                  onClick={() => removeVariable(index)}
-                />
+        <Flex gap={0} width={1}>
+          <Text text={tWorkflow(`info.variable-list`)} isLabel bold />
+          <Flex width={1} sx={{ mb: "8px" }}>
+            {form.watch("variables").map((variable) => (
+              <Paper
+                key={variable.id}
+                isOutlined
+                sx={{ width: 1, display: "flex", alignItems: "center" }}
+              >
+                <Icon icon="eos-icons:env" color="disabled" sx={{ ml: "8px", mr: "16px" }} />
+                <Flex gap={0} width={1} alignItems="flex-start" justifyContent="space-between">
+                  <Flex row>
+                    <Text text={variable.name} bold textColor="primary" />
+                    <Text text={variable.type} textColor="disabled" isLabel />
+                  </Flex>
+                  <Text text={variable.defaultValue} bold />
+                </Flex>
+              </Paper>
+            ))}
+          </Flex>
+          {/* Open variables edit modal */}
+          <Button
+            text={tWorkflow("actions.edit-variables")}
+            sx={{ width: 1 }}
+            onClick={editModalHandler.openModal}
+          />
+        </Flex>
+
+        {/* variables edit modal */}
+        <Modal
+          isOpen={editModalHandler.isOpen}
+          closeModal={editModalHandler.closeModal}
+          isPrevented={false}
+        >
+          {variables.map((variable, index) => {
+            const realTimeVariableType = form.watch().variables.find((_, i) => i === index)?.type;
+            return (
+              <Flex key={variable.id} width={1} sx={{ mb: "8px", p: "8px" }}>
+                <Flex row gap={0} width={1} alignItems="center" justifyContent="space-between">
+                  {/* No */}
+                  <Text text={`No.${index + 1}`} bold textColor="primary" isTitle />
+                  {/* Delete condition */}
+                  <Button
+                    icon="solar:trash-bin-trash-line-duotone"
+                    color="error"
+                    isGhost
+                    isCircle
+                    onClick={() => removeVariable(index)}
+                  />
+                </Flex>
+
+                <Flex row width={1} sx={{ alignItems: "flex-start" }}>
+                  {/* variables.name */}
+                  <InputUncontrolled
+                    name={`variables[${index}].name`}
+                    label={tWorkflow(`fields.${selectedNode.type}.variables.name`)}
+                    fullWidth
+                  />
+                  {/* variables.type */}
+                  <SelectUncontrolled
+                    name={`variables[${index}].type`}
+                    label={tWorkflow(`fields.${selectedNode.type}.variables.type`)}
+                    fullWidth
+                    options={LOGIC_START_NODE.VARIABLE_TYPE_OPTIONS}
+                    emptyOptionMessage={tCommon("messages.NO_DATA")}
+                  />
+                </Flex>
+
+                {/* variables.defaultValue */}
+                {realTimeVariableType !== LogicVariableType.Boolean && (
+                  <InputUncontrolled
+                    name={`variables[${index}].defaultValue`}
+                    label={tWorkflow(`fields.${selectedNode.type}.variables.defaultValue`)}
+                    fullWidth
+                  />
+                )}
+                {realTimeVariableType === LogicVariableType.Boolean && (
+                  <SelectUncontrolled
+                    name={`variables[${index}].defaultValue`}
+                    label={tWorkflow(`fields.${selectedNode.type}.variables.defaultValue`)}
+                    fullWidth
+                    options={[
+                      {
+                        label: "true",
+                        value: "true",
+                      },
+                      {
+                        label: "false",
+                        value: "false",
+                      },
+                    ]}
+                  />
+                )}
               </Flex>
+            );
+          })}
 
-              <Flex row width={1} sx={{ alignItems: "flex-start" }}>
-                {/* variables.name */}
-                <InputUncontrolled
-                  name={`variables[${index}].name`}
-                  label={tWorkflow(`fields.${selectedNode.type}.variables.name`)}
-                  fullWidth
-                />
-                {/* variables.type */}
-                <SelectUncontrolled
-                  name={`variables[${index}].type`}
-                  label={tWorkflow(`fields.${selectedNode.type}.variables.type`)}
-                  fullWidth
-                  options={LOGIC_START_NODE.VARIABLE_TYPE_OPTIONS}
-                  emptyOptionMessage={tCommon("messages.NO_DATA")}
-                />
-              </Flex>
-
-              {/* variables.defaultValue */}
-              {realTimeVariableType !== LogicVariableType.Boolean && (
-                <InputUncontrolled
-                  name={`variables[${index}].defaultValue`}
-                  label={tWorkflow(`fields.${selectedNode.type}.variables.defaultValue`)}
-                  fullWidth
-                />
-              )}
-              {realTimeVariableType === LogicVariableType.Boolean && (
-                <SelectUncontrolled
-                  name={`variables[${index}].defaultValue`}
-                  label={tWorkflow(`fields.${selectedNode.type}.variables.defaultValue`)}
-                  fullWidth
-                  options={[
-                    {
-                      label: "true",
-                      value: "true",
-                    },
-                    {
-                      label: "false",
-                      value: "false",
-                    },
-                  ]}
-                />
-              )}
-            </Flex>
-          );
-        })}
-
-        {/* Add variable */}
-        <Button
-          icon="material-symbols:add-rounded"
-          text={tWorkflow(`fields.${selectedNode.type}.variables.variable`)}
-          onClick={() => appendVariable()}
-          sx={{ mt: "8px", mb: "24px", width: 1 }}
-        />
+          {/* Add variable */}
+          <Button
+            icon="material-symbols:add-rounded"
+            text={tWorkflow(`fields.${selectedNode.type}.variables.variable`)}
+            onClick={() => appendVariable()}
+            sx={{ mt: "8px", mb: "24px", width: 1 }}
+          />
+        </Modal>
       </Flex>
     </FormUncontrolled>
   );

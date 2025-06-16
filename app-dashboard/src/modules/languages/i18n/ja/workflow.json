@@ -9,7 +9,12 @@
   },
 
   "actions": {
-    "jump-to-current-node": "ノードの場所にジャンプする"
+    "jump-to-current-node": "ノードの場所にジャンプする",
+    "edit-variables": "変数を編集する"
+  },
+
+  "info": {
+    "variable-list": "変数リスト"
   },
 
   "fields": {

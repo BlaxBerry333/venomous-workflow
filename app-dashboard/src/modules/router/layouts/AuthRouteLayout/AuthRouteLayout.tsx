@@ -9,7 +9,7 @@ const AuthRouteLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childre
       {/* Background Image */}
       <LayoutBackgroundImage />
 
-      <Flex alignItems="flex-start" gap={0.5} >
+      <Flex alignItems="flex-start" gap={0.5}>
         {/* Header */}
         <LayoutHeader />
 

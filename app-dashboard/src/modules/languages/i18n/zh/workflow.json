@@ -9,7 +9,12 @@
   },
 
   "actions": {
-    "jump-to-current-node": "定位至当前 Node 的位置"
+    "jump-to-current-node": "定位至当前 Node 的位置",
+    "edit-variables": "编辑变量"
+  },
+
+  "info": {
+    "variable-list": "变量列表"
   },
 
   "fields": {

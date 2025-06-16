@@ -16,12 +16,12 @@ const NodeIcon = memo<{ nodeType: INode["type"] }>(({ nodeType }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: WORKFLOW_CUSTOM_NODE_COLORS[nodeType!],
+        backgroundColor: WORKFLOW_CUSTOM_NODE_COLORS[nodeType],
         color: "white",
-        mr:"8px"
+        mr: "8px",
       }}
     >
-      <Icon icon={WORKFLOW_CUSTOM_NODE_ICONS[nodeType!]} />
+      <Icon icon={WORKFLOW_CUSTOM_NODE_ICONS[nodeType]} />
     </Paper>
   );
 });

@@ -2,7 +2,6 @@ import { memo, useCallback, useMemo, type JSX } from "react";
 import {
   CollapsedSidebar,
   Flex,
-  generateNewNodeToStore,
   Menu,
   Text,
   type MenuItemProps,
@@ -11,9 +10,9 @@ import {
 
 import { NodeIcon } from "@/features/workflow/components/custom-nodes/_base";
 import { WORKFLOW_LOGIC_NODE_TYPES } from "@/features/workflow/constants";
-import { getNodeDataDefaultFormValue } from "@/features/workflow/helpers";
 import type { INodeType } from "@/features/workflow/types";
 import { useTranslation } from "@/modules/languages";
+import { useLogicNodeCreate } from "../hooks";
 
 const NodeMenu = memo(() => {
   const { t } = useTranslation("workflow");
@@ -26,21 +25,7 @@ const NodeMenu = memo(() => {
     [t],
   );
 
-  const onDragToGenerateNewNode = useCallback(
-    (event: React.DragEvent<HTMLDivElement>, nodeType: INodeType) => {
-      event.dataTransfer.effectAllowed = "move";
-
-      const defaultFormValues =getNodeDataDefaultFormValue(nodeType)
-      generateNewNodeToStore({
-        type: nodeType,
-        data: {
-          formValue: defaultFormValues,
-          isInValid: defaultFormValues !== null,
-        },
-      });
-    },
-    [],
-  );
+  const { onDragToCreateNewNode } = useLogicNodeCreate();
 
   const renderNodeMenuItem = useCallback(
     (item: MenuItemProps): JSX.Element => {
@@ -50,7 +35,7 @@ const NodeMenu = memo(() => {
           row
           key={nodeType}
           draggable
-          onDragStart={(event) => onDragToGenerateNewNode(event, nodeType)}
+          onDragStart={(event) => onDragToCreateNewNode(event, nodeType)}
           sx={{
             cursor: "move",
             userSelect: "none",
@@ -63,11 +48,11 @@ const NodeMenu = memo(() => {
           }}
         >
           <NodeIcon nodeType={nodeType} />
-          <Text text={item.label} bold isLabel ellipsis  />
+          <Text text={item.label} bold isLabel ellipsis />
         </Flex>
       );
     },
-    [onDragToGenerateNewNode],
+    [onDragToCreateNewNode],
   );
 
   return (

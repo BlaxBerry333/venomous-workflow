@@ -9,6 +9,13 @@ const DEFAULT_FORM_VALUE: ILogicConditionNodeFormValue = {
   conditions: [
     {
       id: crypto.randomUUID(),
+      type: LogicConditionType.If,
+      variable: undefined,
+      operator: undefined,
+      value: undefined,
+    },
+    {
+      id: crypto.randomUUID(),
       type: LogicConditionType.Else,
       variable: undefined,
       operator: undefined,
