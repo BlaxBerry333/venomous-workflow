@@ -5,11 +5,11 @@ import LayoutHeader from "../LayoutHeader";
 
 const AuthRouteLayout: NamedExoticComponent<PropsWithChildren> = memo(({ children }) => {
   return (
-    <Container maxWidth="fullwidth">
+    <Container maxWidth="fullwidth" sx={{ positino: "relative" }}>
       {/* Background Image */}
       <LayoutBackgroundImage />
 
-      <Flex alignItems="flex-start" gap={0.5} sx={{ positino: "relative" }}>
+      <Flex alignItems="flex-start" gap={0.5} >
         {/* Header */}
         <LayoutHeader />
 
