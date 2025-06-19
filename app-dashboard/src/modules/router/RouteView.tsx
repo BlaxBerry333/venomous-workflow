@@ -64,7 +64,16 @@ export default function RouterViews(): React.ReactElement | null {
 
     {
       path: "*",
-      element: <Navigate replace to={ROUTE_PATHS.ERRORS[404]} />,
+      element: (
+        <Navigate
+          replace
+          to={ROUTE_PATHS.ERRORS[404]}
+          state={{
+            message: "Page Not Found",
+            reason: "The resource requested could not be founded!",
+          }}
+        />
+      ),
     },
   ]);
 }

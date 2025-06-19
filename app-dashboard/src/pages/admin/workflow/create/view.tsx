@@ -4,18 +4,18 @@ import { Flex, Loading, WorkflowWrapper } from "venomous-ui";
 const NodeMenu = lazy(() => import("@/features/workflow/components/NodeMenu"));
 const WorkflowPlayground = lazy(() => import("@/features/workflow/components/Playground"));
 
-const AdminLogicDetailView: NamedExoticComponent = memo(() => {
+const AdminWorkflowCreateView: NamedExoticComponent = memo(() => {
   return (
     <WorkflowWrapper>
       <Flex row gap={0.5} sx={{ height: "100%", overflow: "hidden" }}>
         <Suspense fallback={<Loading />}>
           <NodeMenu />
-          <WorkflowPlayground />
+          <WorkflowPlayground nodes={[]} edges={[]} />
         </Suspense>
       </Flex>
     </WorkflowWrapper>
   );
 });
 
-AdminLogicDetailView.displayName = "AdminLogicDetailView";
-export default AdminLogicDetailView;
+AdminWorkflowCreateView.displayName = "AdminWorkflowCreateView";
+export default AdminWorkflowCreateView;

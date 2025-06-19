@@ -1,0 +1,14 @@
+{
+  "nav": {
+    "analysis": "分析",
+    "workflow": "流程图",
+    "connection": "连接",
+    "connection-storage": "存储",
+
+    "common": {
+      "list": "列表",
+      "create": "新创建",
+      "detail": "详情查看"
+    }
+  }
+}

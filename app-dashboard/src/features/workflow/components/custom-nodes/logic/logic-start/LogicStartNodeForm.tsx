@@ -21,9 +21,10 @@ import { LOGIC_START_NODE } from "@/features/workflow/constants";
 import { useNodePanelSelected } from "@/features/workflow/hooks";
 import {
   LogicVariableType,
-  type ILogicStartNodeFormValue,
   type ILogicVariableItem,
-} from "@/features/workflow/types/logic-nodes";
+} from "@/modules/api/types/workflow-logic-common";
+import type { ILogicStartNodeFormValue } from "@/modules/api/types/workflow-logic-node-form-value";
+
 import { useLanguage, useTranslation } from "@/modules/languages";
 
 const LogicStartNodeForm = memo(() => {

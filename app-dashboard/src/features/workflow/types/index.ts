@@ -6,7 +6,7 @@ import type {
   ILogicDatasetOutputNodeFormValue,
   ILogicEndNodeFormValue,
   ILogicStartNodeFormValue,
-} from "./logic-nodes";
+} from "@/modules/api/types/workflow-logic-node-form-value";
 
 export enum INodeType {
   Group = WorkflowNodeTypeDefault.Group,

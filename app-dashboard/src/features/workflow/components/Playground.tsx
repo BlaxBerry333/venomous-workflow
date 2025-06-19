@@ -1,23 +1,23 @@
 import { memo, type NamedExoticComponent } from "react";
 import { WorkflowEdgeTypeDefault, WorkflowPlayground } from "venomous-ui";
 
-import { MOCK_EDGES, MOCK_NODES } from "@/__mock__/workflow";
 import { useTranslation } from "@/modules/languages";
 import { WORKFLOW_CUSTOM_NODE_COLORS, WORKFLOW_CUSTOM_NODE_COMPONENTS } from "../constants";
+import type { IEdge, INode } from "../types";
 import { NodePanel } from "./custom-node-panel";
 import PlaygroundActions from "./playgroun-actions";
 
-const Playground: NamedExoticComponent = memo(() => {
+const Playground: NamedExoticComponent<{
+  nodes: INode[];
+  edges: IEdge[];
+}> = memo(({ nodes, edges }) => {
   const { t: tCommon } = useTranslation("common");
 
   return (
     <WorkflowPlayground
       sx={{ width: "100%", height: "100%", p: 0 }}
       nodeTypes={WORKFLOW_CUSTOM_NODE_COMPONENTS}
-      originalElements={{
-        nodes: MOCK_NODES,
-        edges: MOCK_EDGES,
-      }}
+      originalElements={{ nodes, edges }}
       configs={{
         styles: {
           nodeWidth: 250,

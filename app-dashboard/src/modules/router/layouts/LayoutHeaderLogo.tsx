@@ -1,5 +1,5 @@
 import { memo, useCallback, type NamedExoticComponent } from "react";
-import { LazyImage, Text } from "venomous-ui";
+import { Text } from "venomous-ui";
 
 import { BASIC_CONFIGS } from "@/configs";
 import { useRouteNavigate } from "../hooks";
@@ -7,14 +7,20 @@ import LOGO from "/favicon.svg";
 
 const LayoutHeaderLogo: NamedExoticComponent<{ to: string }> = memo(({ to = "/" }) => {
   const router = useRouteNavigate();
-  const navigateToHome = useCallback(() => {
-    router.push(to);
-  }, [router, to]);
+  const navigateToHome = useCallback(() => router.push(to), [router, to]);
 
   return (
     <>
       {/* Logo Image */}
-      <LazyImage src={LOGO} alt="logo" width={28} onClick={navigateToHome} />
+      <img
+        src={LOGO}
+        alt="logo"
+        width={28}
+        draggable={false}
+        loading="lazy"
+        onClick={navigateToHome}
+        style={{ display: "block", minWidth: 28, cursor: "pointer" }}
+      />
 
       {/* Title */}
       <Text
@@ -22,7 +28,7 @@ const LayoutHeaderLogo: NamedExoticComponent<{ to: string }> = memo(({ to = "/" 
         titleLevel="h5"
         ellipsis
         text={BASIC_CONFIGS.APP_SERIES_NAME.slice(1)}
-        sx={{ transform: "translate(-1px, 1px)" }}
+        sx={{ transform: "translate(-1px, 4px)", cursor: "pointer" }}
         onClick={navigateToHome}
       />
     </>

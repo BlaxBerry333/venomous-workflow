@@ -1,32 +1,8 @@
-export enum LogicVariableType {
-  String = "string",
-  Number = "number",
-  Boolean = "boolean",
-  // Object = "object",
-  // Array = "array",
-}
-
-export enum LogicOperator {
-  And = "and",
-  Or = "or",
-  MoreThan = ">",
-  LessThan = "<",
-  Equal = "is",
-  NotEqual = "is not",
-}
-
-export enum LogicConditionType {
-  If = "if",
-  Elif = "elif",
-  Else = "else",
-}
-
-export type ILogicVariableItem = {
-  id: string;
-  name: string;
-  type: LogicVariableType;
-  defaultValue: string;
-};
+import type {
+  ILogicVariableItem,
+  LogicConditionType,
+  LogicOperator,
+} from "./workflow-logic-common";
 
 type ICommonNodeFormValue = {
   description: string;

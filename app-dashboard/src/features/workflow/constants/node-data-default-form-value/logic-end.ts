@@ -1,4 +1,4 @@
-import type { ILogicEndNodeFormValue } from "@/features/workflow/types/logic-nodes";
+import type { ILogicEndNodeFormValue } from "@/modules/api/types/workflow-logic-node-form-value";
 
 const DEFAULT_FORM_VALUE: ILogicEndNodeFormValue = null;
 

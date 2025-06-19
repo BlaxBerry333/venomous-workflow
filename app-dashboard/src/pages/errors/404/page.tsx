@@ -1,16 +1,17 @@
 import { memo, type NamedExoticComponent } from "react";
-import { Text } from "venomous-ui";
+import { Flex, Text } from "venomous-ui";
 
 import { useRouteState } from "@/modules/router";
 
 const Error404Page: NamedExoticComponent = memo(() => {
-  const { state } = useRouteState<{ reason: string }>();
+  const { state } = useRouteState<{ message: string; reason: string }>();
 
   return (
-    <>
-      <Text isTitle titleLevel="h4" text={"404"} />
-      <Text isTitle text={state?.reason} />
-    </>
+    <Flex>
+      <Text isTitle titleLevel="h1" text={"404"} />
+      <Text isTitle titleLevel="h4" text={`Oops! ${state?.message}`} />
+      <Text text={state?.reason} />
+    </Flex>
   );
 });
 

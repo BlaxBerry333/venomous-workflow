@@ -1,0 +1,14 @@
+{
+  "nav": {
+    "analysis": "Analysis",
+    "workflow": "Workflow",
+    "connection": "Connection",
+    "connection-storage": "Storage",
+
+    "common": {
+      "list": "List",
+      "create": "Create",
+      "detail": "Detail"
+    }
+  }
+}

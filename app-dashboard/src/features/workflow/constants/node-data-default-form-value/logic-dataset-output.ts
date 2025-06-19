@@ -1,4 +1,4 @@
-import type { ILogicDatasetOutputNodeFormValue } from "@/features/workflow/types/logic-nodes";
+import type { ILogicDatasetOutputNodeFormValue } from "@/modules/api/types/workflow-logic-node-form-value";
 
 const DEFAULT_FORM_VALUE: ILogicDatasetOutputNodeFormValue = {
   description: "",

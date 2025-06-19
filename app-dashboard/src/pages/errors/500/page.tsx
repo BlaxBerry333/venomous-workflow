@@ -4,12 +4,13 @@ import { Text } from "venomous-ui";
 import { useRouteState } from "@/modules/router";
 
 const Error500Page: NamedExoticComponent = memo(() => {
-  const { state } = useRouteState<{ reason: string }>();
+  const { state } = useRouteState<{ message: string; reason: string }>();
 
   return (
     <>
       <Text isTitle titleLevel="h4" text={"500"} />
-      <Text isTitle text={state?.reason} />
+      <Text isTitle titleLevel="h4" text={`Oops! ${state?.message}`} />
+      <Text text={state?.reason} />
     </>
   );
 });

@@ -1,7 +1,5 @@
-import {
-  LogicVariableType,
-  type ILogicStartNodeFormValue,
-} from "@/features/workflow/types/logic-nodes";
+import { LogicVariableType } from "@/modules/api/types/workflow-logic-common";
+import type { ILogicStartNodeFormValue } from "@/modules/api/types/workflow-logic-node-form-value";
 
 const DEFAULT_FORM_VALUE: ILogicStartNodeFormValue = {
   description: "",

@@ -14,15 +14,12 @@ const ROUTE_PATHS = {
   ADMIN: {
     ROOT: "/admin",
     ANALYSIS: "/admin/analysis",
-    DRAFT_FLOW_LIST: "/admin/draft-flow",
-    DRAFT_FLOW_CREATE: "/admin/draft-flow/create",
-    DRAFT_FLOW_DETAIL: "/admin/draft-flow/detail",
-    LOGIC_FLOW_LIST: "/admin/logic-flow",
-    LOGIC_FLOW_CREATE: "/admin/logic-flow/create",
-    LOGIC_FLOW_DETAIL: "/admin/logic-flow/detail",
-    PPT_FLOW_LIST: "/admin/ppt-flow",
-    PPT_FLOW_CREATE: "/admin/ppt-flow/create",
-    PPT_FLOW_DETAIL: "/admin/ppt-flow/detail",
+
+    WORKFLOW_LIST: "/admin/workflow/list",
+    WORKFLOW_CREATE: "/admin/workflow/create",
+    WORKFLOW_DETAIL: "/admin/workflow/detail",
+
+    CONNECTION_STORAGE: "/admin/connection/storage",
   },
 } as const;
 

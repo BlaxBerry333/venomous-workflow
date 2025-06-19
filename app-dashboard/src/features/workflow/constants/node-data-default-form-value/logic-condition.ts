@@ -1,8 +1,5 @@
-import {
-  type ILogicConditionNodeFormValue,
-  LogicConditionType,
-  LogicOperator,
-} from "@/features/workflow/types/logic-nodes";
+import { LogicConditionType, LogicOperator } from "@/modules/api/types/workflow-logic-common";
+import type { ILogicConditionNodeFormValue } from "@/modules/api/types/workflow-logic-node-form-value";
 
 const DEFAULT_FORM_VALUE: ILogicConditionNodeFormValue = {
   description: "",

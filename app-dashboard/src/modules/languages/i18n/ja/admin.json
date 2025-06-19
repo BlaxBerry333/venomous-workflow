@@ -1,0 +1,14 @@
+{
+  "nav": {
+    "analysis": "分析",
+    "workflow": "ワークフロー",
+    "connection": "コネクション",
+    "connection-storage": "ストレージ",
+
+    "common": {
+      "list": "ワークフロー一覧",
+      "create": "新規作成",
+      "detail": "詳細"
+    }
+  }
+}

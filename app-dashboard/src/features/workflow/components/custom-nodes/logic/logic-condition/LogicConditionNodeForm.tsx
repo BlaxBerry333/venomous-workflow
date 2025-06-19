@@ -15,11 +15,8 @@ import z from "zod";
 
 import { LOGIC_CONDITION_NODE } from "@/features/workflow/constants";
 import { useLogicStartNodeContext, useNodePanelSelected } from "@/features/workflow/hooks";
-import {
-  LogicConditionType,
-  LogicOperator,
-  type ILogicConditionNodeFormValue,
-} from "@/features/workflow/types/logic-nodes";
+import { LogicConditionType, LogicOperator } from "@/modules/api/types/workflow-logic-common";
+import type { ILogicConditionNodeFormValue } from "@/modules/api/types/workflow-logic-node-form-value";
 import { useLanguage, useTranslation } from "@/modules/languages";
 
 const LogicConditionNodeForm = memo(() => {

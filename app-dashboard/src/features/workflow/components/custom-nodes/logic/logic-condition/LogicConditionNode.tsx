@@ -9,10 +9,8 @@ import {
 
 import { NodeTitle } from "@/features/workflow/components/custom-nodes/_base";
 import { INodeType, type INode } from "@/features/workflow/types";
-import {
-  LogicConditionType,
-  type ILogicConditionNodeFormValue,
-} from "@/features/workflow/types/logic-nodes";
+import { LogicConditionType } from "@/modules/api/types/workflow-logic-common";
+import type { ILogicConditionNodeFormValue } from "@/modules/api/types/workflow-logic-node-form-value";
 
 const LogicConditionNode = memo<WorkflowNodeComponentProps<INode>>((props) => {
   const { conditions } = props.data.formValue as ILogicConditionNodeFormValue;

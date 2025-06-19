@@ -3,7 +3,7 @@ import {
   LogicConditionType,
   LogicOperator,
   LogicVariableType,
-} from "@/features/workflow/types/logic-nodes";
+} from "@/modules/api/types/workflow-logic-common";
 
 export const MOCK_NODES: INode[] = [
   {
