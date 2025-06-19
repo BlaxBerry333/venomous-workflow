@@ -1,3 +1,4 @@
+import { WORKFLOW_DEFALUT_ELEMENT } from "@/features/workflow/constants";
 import { lazy, memo, Suspense, type NamedExoticComponent } from "react";
 import { Flex, Loading, WorkflowWrapper } from "venomous-ui";
 
@@ -10,7 +11,10 @@ const AdminWorkflowCreateView: NamedExoticComponent = memo(() => {
       <Flex row gap={0.5} sx={{ height: "100%", overflow: "hidden" }}>
         <Suspense fallback={<Loading />}>
           <NodeMenu />
-          <WorkflowPlayground nodes={[]} edges={[]} />
+          <WorkflowPlayground
+            nodes={WORKFLOW_DEFALUT_ELEMENT.nodes}
+            edges={WORKFLOW_DEFALUT_ELEMENT.edges}
+          />
         </Suspense>
       </Flex>
     </WorkflowWrapper>

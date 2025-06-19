@@ -1,4 +1,9 @@
-import { WorkflowNodeTypeDefault, type WorkflowEdge, type WorkflowNode } from "venomous-ui";
+import {
+  WorkflowNodeTypeDefault,
+  type WorkflowEdge,
+  type WorkflowElements,
+  type WorkflowNode,
+} from "venomous-ui";
 
 import type {
   ILogicConditionNodeFormValue,
@@ -28,3 +33,5 @@ export type INode = WorkflowNode<
 >;
 
 export type IEdge = WorkflowEdge;
+
+export type IElement = WorkflowElements<INode, IEdge>;

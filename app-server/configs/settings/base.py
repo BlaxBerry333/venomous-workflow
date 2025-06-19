@@ -33,7 +33,7 @@ INSTALLED_APPS += [
 # Custom Local Apps
 INSTALLED_APPS += [
     "accounts",
-    # "workflow",
+    "workflows",
 ]
 
 

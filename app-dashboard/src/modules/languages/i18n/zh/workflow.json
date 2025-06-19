@@ -1,4 +1,14 @@
 {
+  "info": {
+    "user": "创建者",
+    "name": "工作流名称",
+    "description": "描述",
+    "isActive": "有效",
+    "createdAt": "创建日期",
+    "updatedAt": "更新日期",
+    "variable-list": "变量列表"
+  },
+
   "node-type": {
     "Group": "分组",
     "LogicStart": "逻辑开始",
@@ -11,10 +21,6 @@
   "actions": {
     "jump-to-current-node": "定位至当前 Node 的位置",
     "edit-variables": "编辑变量"
-  },
-
-  "info": {
-    "variable-list": "变量列表"
   },
 
   "fields": {
@@ -37,5 +43,17 @@
         "else": "当 If 与 Elif 都不满足时执行的处理"
       }
     }
+  },
+
+  "api-message": {
+    "create-success": "创建成功",
+    "create-failed": "创建失败",
+    "update-success": "更新成功",
+    "update-failed": "更新失败",
+    "delete-success": "删除成功",
+    "delete-failed": "删除失败",
+    "nodes-canot-be-empty": "Nodes 不能为空",
+    "edges-canot-be-empty": "Edges 不能为空",
+    "nothing-changed": "没有任何改变"
   }
 }

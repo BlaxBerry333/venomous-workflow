@@ -1,21 +1,27 @@
-import { memo } from "react";
+import { lazy, memo, Suspense } from "react";
 import { Flex, WorkflowToolbarPanel } from "venomous-ui";
 
-import { default as ExecuteButton } from "./_ExecuteButton";
-import Info from "./_Info";
-import { default as SaveButton } from "./_SaveButton";
+const ExecuteButton = lazy(() => import("./_ExecuteButton"));
+const Info = lazy(() => import("./_Info"));
+const SaveButton = lazy(() => import("./_SaveButton"));
 
 const PlaygroundActions = memo(() => {
   return (
     <>
       <WorkflowToolbarPanel position="top-left" isPaper={false}>
-        <Info />
+        <Suspense fallback={null}>
+          <Info />
+        </Suspense>
       </WorkflowToolbarPanel>
 
       <WorkflowToolbarPanel position="top-right">
         <Flex row gap={1}>
-          <ExecuteButton />
-          <SaveButton />
+          <Suspense fallback={null}>
+            <ExecuteButton />
+          </Suspense>
+          <Suspense fallback={null}>
+            <SaveButton />
+          </Suspense>
         </Flex>
       </WorkflowToolbarPanel>
     </>

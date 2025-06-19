@@ -13,11 +13,11 @@ class CustomUserModelAdmin(UserAdmin):
     list_per_page = 20
     ordering = ("email",)
     search_fields = ("email",)
-    readonly_fields = ("date_joined", "last_login")
+    readonly_fields = ("id", "date_joined", "last_login")
     ordering = ("email",)
     fieldsets = (
         (None, {"fields": ("password",)}),
-        ("User Information", {"fields": ("email", "name")}),
+        ("User Information", {"fields": ("email", "name", "id")}),
         ("User Permission", {"fields": ("is_staff", "is_superuser")}),
         ("Important Dates", {"fields": ("date_joined", "last_login")}),
     )

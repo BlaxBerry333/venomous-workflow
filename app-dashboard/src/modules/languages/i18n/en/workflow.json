@@ -1,4 +1,14 @@
 {
+  "info": {
+    "user": "Created By",
+    "name": "Workflow Name",
+    "description": "Workflow Description",
+    "isActive": "Is Active",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "variable-list": "Variable List"
+  },
+
   "node-type": {
     "Group": "Group",
     "LogicStart": "Logic Start",
@@ -11,10 +21,6 @@
   "actions": {
     "jump-to-current-node": "Jump to Current Node",
     "edit-variables": "Edit Variables"
-  },
-
-  "info": {
-    "variable-list": "Variable List"
   },
 
   "fields": {
@@ -38,5 +44,17 @@
         "else": "Processing when neither If nor Elif is satisfied"
       }
     }
+  },
+
+  "api-message": {
+    "create-success": "Create Success",
+    "create-failed": "Create Failed",
+    "update-success": "Update Success",
+    "update-failed": "Update Failed",
+    "delete-success": "Delete Success",
+    "delete-failed": "Delete Failed",
+    "nodes-canot-be-empty": "Nodes Canot Be Empty",
+    "edges-canot-be-empty": "Edges Canot Be Empty",
+    "nothing-changed": "Nothing Changed"
   }
 }

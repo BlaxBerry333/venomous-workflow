@@ -1,14 +1,23 @@
-import { useRouteSearch } from "@/modules/router";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Flex, Text } from "venomous-ui";
 
+import { useWorkflowDataDetail } from "@/modules/api/hooks/workflow-data";
+import { handleFormatDatetime } from "@/modules/tools";
+
 const Info = memo(() => {
-  const { workflowId } = useRouteSearch<{ workflowId: string }>();
+  const { data: worfklowDataDetail } = useWorkflowDataDetail();
+  const { name, id, updatedAt } = worfklowDataDetail || {};
+  const updatedAtFormatted = useMemo<string>(() => {
+    if (!updatedAt) return "";
+    const d = handleFormatDatetime(updatedAt);
+    return `${d.DateTime} ( ${d.FromNow} )`;
+  }, [updatedAt]);
 
   return (
     <Flex gap={0}>
-      <Text bold textColor="primary" text="Sample Workflow" />
-      <Text isLabel bold textColor="disabled" text={`#${workflowId}`} />
+      {name && <Text bold textColor="primary" text={name} />}
+      {id && <Text isLabel bold textColor="disabled" text={`#${id}`} />}
+      {updatedAt && <Text isLabel bold textColor="disabled" text={updatedAtFormatted} />}
     </Flex>
   );
 });

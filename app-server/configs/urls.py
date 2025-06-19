@@ -7,4 +7,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # path('api-auth/', include('rest_framework.urls')),
     path("api/account/", include("accounts.urls")),
+    path("api/<str:user_id>/", include("workflows.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

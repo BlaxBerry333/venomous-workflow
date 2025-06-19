@@ -21,9 +21,12 @@ const ErrorRouteLayout: NamedExoticComponent<PropsWithChildren> = memo(({ childr
             left: "50%",
             top: "50%",
             transform: "translate(-50%, -50%)",
+            padding: "16px",
+            minWidth: 390,
+            maxWidth: 690,
           }}
         >
-          <Container maxWidth="sm">{children}</Container>
+          <Container maxWidth="md">{children}</Container>
         </Flex>
       </Flex>
     </Container>

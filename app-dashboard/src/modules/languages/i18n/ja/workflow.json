@@ -1,4 +1,14 @@
 {
+  "info": {
+    "user": "作成者",
+    "name": "ワークフロー名",
+    "description": "説明",
+    "isActive": "有効",
+    "createdAt": "作成日",
+    "updatedAt": "更新日",
+    "variable-list": "変数リスト"
+  },
+
   "node-type": {
     "Group": "グループ",
     "LogicStart": "ロジック開始",
@@ -11,10 +21,6 @@
   "actions": {
     "jump-to-current-node": "ノードの場所にジャンプする",
     "edit-variables": "変数を編集する"
-  },
-
-  "info": {
-    "variable-list": "変数リスト"
   },
 
   "fields": {
@@ -38,5 +44,17 @@
         "else": "If と Elif が満たされない場合の処理"
       }
     }
+  },
+
+  "api-message": {
+    "create-success": "作成成功",
+    "create-failed": "作成失敗",
+    "update-success": "更新成功",
+    "update-failed": "更新失敗",
+    "delete-success": "削除成功",
+    "delete-failed": "削除失敗",
+    "nodes-canot-be-empty": "Nodes が空です",
+    "edges-canot-be-empty": "Edges が空です",
+    "nothing-changed": "変更がありません"
   }
 }

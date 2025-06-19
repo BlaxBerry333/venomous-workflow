@@ -6,6 +6,7 @@
   - [Local Setup](#local-setup)
   - [Create Superuser](#create-superuser)
   - [Change Liberaries](#change-liberaries)
+  - [Migration](#migration)
 - [Commands Inside Container](#commands-inside-container)
 - [Links](#links)
 - [APIs](#apis)
@@ -83,6 +84,20 @@ root@[CONTAINER_ID]:/app# \
     python manage.py migrate
 ```
 
+### Migration
+
+```zsh
+% make entry CONTAINER=server
+root@[CONTAINER_ID]:/app# \
+    # check migrations
+    python manage.py showmigrations \
+    # create migration file
+    python manage.py makemigrations <application_name> --name <migration_name> \
+    # migrate
+    python manage.py migrate <application_name>
+root@[CONTAINER_ID]:/app# exit
+```
+
 ## Commands Inside Container
 
 ```zsh
@@ -110,16 +125,22 @@ Local URL:
 
 ## APIs
 
-| Method            | Path                                | Description                                                             |
-| ----------------- | ----------------------------------- | ----------------------------------------------------------------------- |
-| **account**       | -                                   | -                                                                       |
-| POST              | `/api/account/signin/`              | signin                                                                  |
-| POST              | `/api/account/signup/`              | create a normal user<br/> ( **not authorized to access Dajngo Admin** ) |
-| POST              | `/api/account/signout/`             | signout                                                                 |
-| POST              | `/api/account/refresh-accesstoken/` | refresh access token                                                    |
-| **account users** | -                                   | -                                                                       |
-| GET               | `/api/account/users/`               | -                                                                       |
-| POST              | `/api/account/users/`               | -                                                                       |
-| GET               | `/api/account/users/{id}/`          | -                                                                       |
-| PUT               | `/api/account/users/{id}/`          | -                                                                       |
-| DELETE            | `/api/account/users/{id}/`          | -                                                                       |
+| Method            | Path                                   | Description                                                             |
+| ----------------- | -------------------------------------- | ----------------------------------------------------------------------- |
+| **account**       | -                                      | -                                                                       |
+| POST              | `/api/account/signin/`                 | signin                                                                  |
+| POST              | `/api/account/signup/`                 | create a normal user<br/> ( **not authorized to access Dajngo Admin** ) |
+| POST              | `/api/account/signout/`                | signout                                                                 |
+| POST              | `/api/account/refresh-accesstoken/`    | refresh access token                                                    |
+| **account users** | -                                      | -                                                                       |
+| GET               | `/api/account/users/`                  | -                                                                       |
+| POST              | `/api/account/users/`                  | -                                                                       |
+| GET               | `/api/account/users/{id}/`             | -                                                                       |
+| PUT               | `/api/account/users/{id}/`             | -                                                                       |
+| DELETE            | `/api/account/users/{id}/`             | -                                                                       |
+| **workflow data** | -                                      | -                                                                       |
+| GET               | `/api/{user_id}/workflow/data/list/`   | -                                                                       |
+| POST              | `/api/{user_id}/workflow/data/create/` | -                                                                       |
+| GET               | `/api/{user_id}/workflow/data/{id}/`   | -                                                                       |
+| PUT               | `/api/{user_id}/workflow/data/{id}/`   | -                                                                       |
+| DELETE            | `/api/{user_id}/workflow/data/{id}/`   | -                                                                       |

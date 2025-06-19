@@ -75,6 +75,7 @@ class SnakeCaseRequestMiddleware(MiddlewareMixin):
     """
 
     def process_request(self, request):
+        # 处理 DRF Request 对象
         if isinstance(request, Request):
             if request.content_type == "application/json":
                 try:
@@ -83,13 +84,34 @@ class SnakeCaseRequestMiddleware(MiddlewareMixin):
 
                     data = json.loads(request.body)
                     converted_data = convert_dict_keys_to_snack_case(data)
-                    # Convert the data back to a string
+
+                    # 正确设置 DRF Request 的数据
                     request._full_data = converted_data
                     request._data = converted_data
+                    # 重要：清除已缓存的数据，强制重新解析
+                    if hasattr(request, "_cached_data"):
+                        delattr(request, "_cached_data")
 
                 except json.JSONDecodeError:
-                    # If the request body is not valid JSON, ignore it
                     pass
 
             if request.GET:
-                request.GET = convert_dict_keys_to_snack_case(request.GET.dict())
+                converted_get = convert_dict_keys_to_snack_case(request.GET.dict())
+                request.GET = type(request.GET)(converted_get)
+
+        # 处理普通 Django HttpRequest 对象
+        else:
+            if (
+                hasattr(request, "content_type")
+                and request.content_type == "application/json"
+            ):
+                try:
+                    if request.body:
+                        data = json.loads(request.body)
+                        converted_data = convert_dict_keys_to_snack_case(data)
+                        # 对于普通 Django request，需要重新设置 body
+                        request._body = json.dumps(converted_data).encode("utf-8")
+                except json.JSONDecodeError:
+                    pass
+
+        return None

@@ -34,6 +34,8 @@ class CustomUserModel(AbstractBaseUser, PermissionsMixin):
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
+        verbose_name="User ID",
+        help_text="( UUID )",
     )
     email = models.EmailField(
         unique=True,

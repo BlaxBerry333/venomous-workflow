@@ -6,7 +6,7 @@
     "connection-storage": "ストレージ",
 
     "common": {
-      "list": "ワークフロー一覧",
+      "list": "一覧",
       "create": "新規作成",
       "detail": "詳細"
     }
