@@ -57,7 +57,6 @@ class WorkflowDataViewSet(viewsets.ModelViewSet):
                 {"error": "User not found"},
                 status=status.HTTP_404_NOT_FOUND,
             )
-
         return super().list(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
@@ -70,13 +69,4 @@ class WorkflowDataViewSet(viewsets.ModelViewSet):
                 {"error": "User ID is required"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-
-        total_instances = WorkflowDataModel.objects.count()
-        max_count = WorkflowDataModel.MAX_AMOUNT_OF_INSTANCE
-        if total_instances >= max_count:
-            return Response(
-                {"error": f"Number of workflow instances cannot exceed {max_count}"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
         return super().create(request, *args, **kwargs)

@@ -1,4 +1,7 @@
 import { memo, useCallback, useMemo } from "react";
+
+import type { AxiosError } from "axios";
+import { isEqual } from "lodash-es";
 import {
   Button,
   Modal,
@@ -16,7 +19,6 @@ import {
 import { useTranslation } from "@/modules/languages";
 import { useRouteNavigate, useRouteSearch } from "@/modules/router";
 import ROUTE_PATHS from "@/modules/router/paths";
-import { isEqual } from "lodash-es";
 import SaveButtonForm, { type SaveButtonFormValue } from "./_SaveButtonForm";
 
 const SaveButton = memo(() => {
@@ -81,11 +83,13 @@ function useSaveButton() {
       lockElements();
 
       if (element.nodes.length === 0) {
-        return toast({
+        toast({
           type: "error",
           title: tWorkflow(`api-message.${workflowId ? "update" : "create"}-failed`),
           description: tWorkflow("api-message.nodes-canot-be-empty"),
         });
+        unlockElements();
+        return;
       }
 
       if (workflowId) {
@@ -104,21 +108,43 @@ function useSaveButton() {
           element: JSON.stringify(element),
         };
         if (isEqual(currentData, newData)) {
-          return toast({
+          toast({
             type: "error",
             title: tWorkflow("api-message.update-failed"),
             description: tWorkflow("api-message.nothing-changed"),
           });
+          unlockElements();
+          return;
         }
 
-        await updateWorkflowData(newData);
-        unlockElements();
+        await updateWorkflowData(newData)
+          .then(() => {
+            toast({
+              type: "success",
+              title: tWorkflow("api-message.update-success"),
+              description: tWorkflow("api-message.update-success"),
+            });
+          })
+          .catch((err: AxiosError) => {
+            let message: string = "";
+            if (!err.response?.data) {
+              message = err.message;
+            } else {
+              message = Object.entries(err.response?.data).map(([field, messages]) => ({
+                field,
+                message: messages?.[0] ?? "",
+              }))?.[0]?.message;
+            }
+            toast({
+              type: "error",
+              title: tWorkflow("api-message.update-failed"),
+              description: tWorkflow(message),
+            });
+          })
+          .finally(() => {
+            unlockElements();
+          });
 
-        toast({
-          type: "success",
-          title: tWorkflow("api-message.update-success"),
-          description: tWorkflow("api-message.update-success"),
-        });
         return;
       }
 
@@ -129,14 +155,33 @@ function useSaveButton() {
         element: JSON.stringify(element),
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-      });
-      unlockElements();
-      toast({
-        type: "success",
-        title: tWorkflow("api-message.create-success"),
-        description: tWorkflow("api-message.create-success"),
-      });
-
+      })
+        .then(() => {
+          toast({
+            type: "success",
+            title: tWorkflow("api-message.create-success"),
+            description: tWorkflow("api-message.create-success"),
+          });
+        })
+        .catch((err: AxiosError) => {
+          let message: string = "";
+          if (!err.response?.data) {
+            message = err.message;
+          } else {
+            message = Object.entries(err.response?.data).map(([field, messages]) => ({
+              field,
+              message: messages?.[0] ?? "",
+            }))?.[0]?.message;
+          }
+          toast({
+            type: "error",
+            title: tWorkflow("api-message.create-failed"),
+            description: tWorkflow(message),
+          });
+        })
+        .finally(() => {
+          unlockElements();
+        });
       router.replace(ROUTE_PATHS.ADMIN.WORKFLOW_LIST);
     },
     [
@@ -144,7 +189,7 @@ function useSaveButton() {
       getNodes,
       getEdges,
       lockElements,
-      lockElements,
+      unlockElements,
       unlockElements,
       tWorkflow,
       router,
