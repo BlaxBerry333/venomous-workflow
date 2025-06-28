@@ -3,15 +3,7 @@ import json
 from rest_framework import serializers
 
 from workflows.models.workflow_data import WorkflowDataModel
-from workflows.common import (
-    SupportedNodeType,
-    validate_group_node,
-    validate_logic_start_node,
-    validate_logic_end_node,
-    validate_logic_condition_node,
-    validate_logic_dataset_input_node,
-    validate_logic_dataset_output_node,
-)
+from workflows.common import validate_node_data
 
 __all__ = ["WorkflowDataSerializer"]
 
@@ -88,27 +80,8 @@ class WorkflowDataSerializer(serializers.ModelSerializer):
                 f"Number of nodes cannot exceed {max_amount_of_nodes}"
             )
 
-        # Validate structure of each node.data.formValue
+        # Validate structure of each node
         for node in nodes:
-            node_id = node.get("id")
-            node_type = node.get("type")
-            node_data = node.get("data", {})
-            node_form_value = node_data.get("formValue")
-            if node_id is None:
-                raise serializers.ValidationError("node must contain 'id' property")
-            if node_type == SupportedNodeType.Group:
-                validate_group_node(node_id, node_data)
-            elif node_type == SupportedNodeType.LogicStart:
-                validate_logic_start_node(node_id, node_data)
-            elif node_type == SupportedNodeType.LogicEnd:
-                validate_logic_end_node(node_id, node_data)
-            elif node_type == SupportedNodeType.LogicCondition:
-                validate_logic_condition_node(node_id, node_data)
-            elif node_type == SupportedNodeType.LogicDatasetInput:
-                validate_logic_dataset_input_node(node_id, node_data)
-            elif node_type == SupportedNodeType.LogicDatasetOutput:
-                validate_logic_dataset_output_node(node_id, node_data)
-            else:
-                pass
+            validate_node_data(node)
 
         return value

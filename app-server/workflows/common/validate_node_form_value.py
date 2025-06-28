@@ -1,18 +1,55 @@
 from rest_framework import serializers
 
-from .supported_node_logic import SUPPORTED_LOGIC_VARIABLE_TYPE
-
-__all__ = [
-    "validate_group_node",
-    "validate_logic_start_node",
-    "validate_logic_end_node",
-    "validate_logic_condition_node",
-    "validate_logic_dataset_input_node",
-    "validate_logic_dataset_output_node",
-]
+from .supported_node_logic import (
+    SUPPORTED_LOGIC_VARIABLE_TYPE,
+    SUPPORTED_LOGIC_CONDITION_TYPE,
+    SUPPORTED_LOGIC_OPERATOR,
+)
+from .supported_node_type import SupportedNodeType
 
 
-def validate_group_node(node_id, node_data) -> None:
+__all__ = ["validate_node_data"]
+
+
+def validate_node_data(node) -> None:
+    if "id" not in node or node["id"] is None:
+        raise serializers.ValidationError("node must contain 'id' property")
+    if "type" not in node or node["type"] is None:
+        raise serializers.ValidationError("node must contain 'type' property")
+    if "data" not in node or node["data"] is None:
+        raise serializers.ValidationError("node must contain 'data' property")
+
+    node_type = node["type"]
+    if node_type not in SupportedNodeType.values:
+        raise serializers.ValidationError(
+            f"Unsupported node type '{node_type}' for node #{node_id}"
+        )
+
+    form_value = node_data.get("formValue")
+    if not isinstance(form_value, dict):
+        raise serializers.ValidationError(
+            f"LogicDatasetInput #{node_id} 'formValue' must be an object"
+        )
+
+    node_id = node["id"]
+    node_data = node["data"]
+    if node_type == SupportedNodeType.Group:
+        _validate_group_node(node_id, node_data)
+    elif node_type == SupportedNodeType.LogicStart:
+        _validate_logic_start_node(node_id, node_data)
+    elif node_type == SupportedNodeType.LogicEnd:
+        _validate_logic_end_node(node_id, node_data)
+    elif node_type == SupportedNodeType.LogicCondition:
+        _validate_logic_condition_node(node_id, node_data)
+    elif node_type == SupportedNodeType.LogicDatasetInput:
+        _validate_logic_dataset_input_node(node_id, node_data)
+    elif node_type == SupportedNodeType.LogicDatasetOutput:
+        _validate_logic_dataset_output_node(node_id, node_data)
+    else:
+        pass
+
+
+def _validate_group_node(node_id, node_data) -> None:
     """
     Validate structure of GroupNode.data.formValue
     """
@@ -20,7 +57,7 @@ def validate_group_node(node_id, node_data) -> None:
     pass
 
 
-def validate_logic_start_node(node_id, node_data) -> None:
+def _validate_logic_start_node(node_id, node_data) -> None:
     """
     Validate structure of LogicStart.data.formValue
     """
@@ -61,7 +98,7 @@ def validate_logic_start_node(node_id, node_data) -> None:
             )
 
 
-def validate_logic_end_node(node_id, node_data) -> None:
+def _validate_logic_end_node(node_id, node_data) -> None:
     """
     Validate structure of LogicEnd.data.formValue
     """
@@ -69,7 +106,7 @@ def validate_logic_end_node(node_id, node_data) -> None:
     pass
 
 
-def validate_logic_condition_node(node_id, node_data) -> None:
+def _validate_logic_condition_node(node_id, node_data) -> None:
     """
     Validate structure of LogicCondition.data.formValue
     """
@@ -121,11 +158,11 @@ def validate_logic_condition_node(node_id, node_data) -> None:
             )
 
 
-def validate_logic_dataset_input_node(node_id, node_data) -> None:
+def _validate_logic_dataset_input_node(node_id, node_data) -> None:
     """
     Validate structure of LogicDatasetInput.data.formValue
     """
-    form_value = node_data.get("formValue")
+    form_value = node_data["formValue"]
     # description
     if "description" not in form_value or not isinstance(
         form_value["description"], str
@@ -135,11 +172,11 @@ def validate_logic_dataset_input_node(node_id, node_data) -> None:
         )
 
 
-def validate_logic_dataset_output_node(node_id, node_data) -> None:
+def _validate_logic_dataset_output_node(node_id, node_data) -> None:
     """
     Validate structure of LogicDatasetOutput.data.formValue
     """
-    form_value = node_data.get("formValue")
+    form_value = node_data["formValue"]
     # description
     if "description" not in form_value or not isinstance(
         form_value["description"], str
