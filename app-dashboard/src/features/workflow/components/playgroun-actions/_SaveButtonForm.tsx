@@ -41,7 +41,13 @@ const SaveButtonForm: NamedExoticComponent<{
         {/* name */}
         <InputUncontrolled name="name" label={tWorkflow("info.name")} fullWidth />
         {/* description */}
-        <InputUncontrolled name="description" label={tWorkflow("info.description")} fullWidth />
+        <InputUncontrolled
+          name="description"
+          label={tWorkflow("info.description")}
+          fullWidth
+          multiline
+          rows={2}
+        />
         {/* isActive */}
         <SwitchUncontrolled name="isActive" startLabel={tWorkflow("info.isActive")} />
       </Flex>

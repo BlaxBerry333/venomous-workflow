@@ -19,20 +19,22 @@ def validate_node_data(node) -> None:
     if "data" not in node or node["data"] is None:
         raise serializers.ValidationError("node must contain 'data' property")
 
+    node_id = node["id"]
     node_type = node["type"]
+    node_data = node["data"]
+
     if node_type not in SupportedNodeType.values:
         raise serializers.ValidationError(
             f"Unsupported node type '{node_type}' for node #{node_id}"
         )
 
-    form_value = node_data.get("formValue")
-    if not isinstance(form_value, dict):
-        raise serializers.ValidationError(
-            f"LogicDatasetInput #{node_id} 'formValue' must be an object"
-        )
+    if node_type not in [SupportedNodeType.Group, SupportedNodeType.LogicEnd]:
+        form_value = node_data.get("formValue")
+        if not isinstance(form_value, dict):
+            raise serializers.ValidationError(
+                f"{node_type} #{node_id} 'formValue' must be an object"
+            )
 
-    node_id = node["id"]
-    node_data = node["data"]
     if node_type == SupportedNodeType.Group:
         _validate_group_node(node_id, node_data)
     elif node_type == SupportedNodeType.LogicStart:

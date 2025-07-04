@@ -40,16 +40,14 @@ const SaveButton = memo(() => {
         closeModal={updateModalHandler.closeModal}
         isPrevented
       >
-        <div style={{ padding: "16px 8px" }}>
-          <SaveButtonForm
-            isSubmitting={isSubmitting}
-            handleOnCancel={updateModalHandler.closeModal}
-            handleOnSubmit={async (formValue) => {
-              await handleSubmit(formValue);
-              updateModalHandler.closeModal();
-            }}
-          />
-        </div>
+        <SaveButtonForm
+          isSubmitting={isSubmitting}
+          handleOnCancel={updateModalHandler.closeModal}
+          handleOnSubmit={async (formValue) => {
+            await handleSubmit(formValue);
+            updateModalHandler.closeModal();
+          }}
+        />
       </Modal>
     </>
   );

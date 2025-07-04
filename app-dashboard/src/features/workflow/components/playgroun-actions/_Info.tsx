@@ -2,16 +2,18 @@ import { memo, useMemo } from "react";
 import { Flex, Text } from "venomous-ui";
 
 import { useWorkflowDataDetail } from "@/modules/api/hooks/workflow-data";
+import { useTranslation } from "@/modules/languages";
 import { handleFormatDatetime } from "@/modules/tools";
 
 const Info = memo(() => {
-  const { data: worfklowDataDetail } = useWorkflowDataDetail();
-  const { name, id, updatedAt } = worfklowDataDetail || {};
+  const { t } = useTranslation("workflow");
+  const { data: workflowDataDetail } = useWorkflowDataDetail();
+  const { name, id, updatedAt } = workflowDataDetail || {};
   const updatedAtFormatted = useMemo<string>(() => {
     if (!updatedAt) return "";
     const d = handleFormatDatetime(updatedAt);
     return `${d.DateTime} ( ${d.FromNow} )`;
-  }, [updatedAt]);
+  }, [updatedAt, t]);
 
   return (
     <Flex gap={0}>

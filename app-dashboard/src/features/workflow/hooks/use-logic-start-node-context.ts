@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { useWorkflowInstance } from "venomous-ui";
+
+import type { ILogicStartNodeFormValue } from "@/modules/api/types/workflow-logic-node-form-value";
 import { INodeType, type INode } from "../types";
-import type { ILogicStartNodeFormValue } from "../types/logic-nodes";
 
 export default function useLogicStartNodeContext() {
   const { getNodes } = useWorkflowInstance();
@@ -20,7 +21,7 @@ export default function useLogicStartNodeContext() {
     logicStartNode: {
       ...logicStartNode,
       data: {
-        ...logicStartNode.data,
+        ...logicStartNode?.data,
         formValue,
       },
     },
